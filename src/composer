@@ -1,4 +1,0 @@
-#!/usr/bin/env sh
-
-# php /path/to/composer.phar $*
-@php "%~dp0composer.phar" %*

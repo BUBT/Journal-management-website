@@ -3,6 +3,7 @@
         "elasticsearch/elasticsearch": "^6.1",
         "tinymce/tinymce": "^5.0",
         "summernote/summernote": "^0.8.8",
-        "fukuball/jieba-php": "dev-master"
+        "fukuball/jieba-php": "dev-master",
+        "twbs/bootstrap": "4.0.0"
     }
 }
