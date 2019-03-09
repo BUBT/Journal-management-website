@@ -8,7 +8,7 @@ class StaticClass
     protected $protected_variable = 'protected variable';
     private $private_variable = 'private variable';
     public static $_static_variable = 'static variable';
-
+    
 
     public function __construct()
     {

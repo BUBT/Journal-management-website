@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../../src/css/bootstrap.min.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <title>Dashboard</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-2">
+                <img src="/src/img/favicon.png" alt="" class="height-90">
+            </div>
+            <div class="col">
+                <span class="h2 ">海南热带海洋学院学报后台管理</span>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+        <div class="row">
+            <!-- 垂直导航栏-开始 -->
+            <div class="col-2 nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab"
+                    aria-controls="v-pills-home" aria-selected="false">数据一览</a>
+                <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab"
+                    aria-controls="v-pills-profile" aria-selected="false">作品长廊</a>
+                <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab"
+                    aria-controls="v-pills-messages" aria-selected="false">稿件管理</a>
+                <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab"
+                    aria-controls="v-pills-settings" aria-selected="true">文章录入</a>
+                    <!-- 垂直导航栏-结束 -->
+            </div>
+
+            <!-- 导航栏内容-开始 -->
+            <div class="col-10 tab-content" id="v-pills-tabContent">
+                <!-- 数据一览-开始 -->
+                <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                    <!-- <img src="/src/img/01.jpeg" alt="" class="img-fluid"> -->
+
+                    <!-- 数据一览-结束 -->
+                </div>
+                <!-- 作品长廊-开始 -->
+                <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                    <!-- <img src="/src/img/02.jpeg" alt="" class="img-fluid"> -->
+
+                    <!-- 作品长廊-结束 -->
+                </div>
+                <!-- 稿件管理-开始 -->
+                <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                    <!-- <img src="/src/img/03.jpeg" alt="" class="img-fluid"> -->
+
+                    <!-- 稿件管理-结束 -->
+                </div>
+                <!-- 文章录入-开始 -->
+                <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                    <form>
+                        <div class="form-row">
+                            <div class="col">
+                                <input type="text" id="article_title" class="form-control" placeholder="请输入标题">
+                            </div>
+                            <div class="col">
+                                <input type="text" id="article_author" class="form-control" placeholder="请输入作者">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col">
+                                <label for="">摘要：</label>
+                                <textarea id="article_abstract" class="form-control" rows="1"></textarea>
+                            </div>
+                            <div class="col">
+                                <label for="">关键字：</label>
+                                <input type="text" id="article_kw" class="form-control" placeholder="请输入关键字，多个关键字请用逗号隔开">
+                            </div>
+                        </div>
+                        <div id="editor"></div>
+                        
+                        <button type="button" id="save_article" class="btn btn-outline-primary btn-lg btn-block">存稿</button>
+                    </form>
+                    <!-- 文章录入-结束 -->
+                </div>
+                <!-- 导航栏内容-结束 -->
+            </div>
+            <!-- 导航及内容-结束 -->
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- 整体-结束 -->
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="../../src/js/jquery.slim.min.js"></script>
+    <script src="../../src/js/popper.min.js"></script>
+    <script src="/src/js/bootstrap.min.js"></script>
+    <script src="/src/js/wangEditor.min.js"></script>
+    <script src="/src/js/wangEditor-config.js"></script>
+</body>
+
+</html>

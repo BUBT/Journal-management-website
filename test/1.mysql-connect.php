@@ -2,8 +2,6 @@
 
 // 测试：连接数据库
 
-
-
 header("Content-Type:text/html;charset=UTF-8");
 echo '<title>测试数据库连接</title>';
 $type = 'mysql';

@@ -40,7 +40,7 @@ class Connection
     {
       return $this;
     }
-    public static function getInstance($config = '../src/config/journalDB.php')
+    public static function getInstance($config = '../Config/testDB.php')
     {
         if( !self::$instance )
         {
