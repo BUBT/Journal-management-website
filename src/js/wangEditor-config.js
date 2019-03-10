@@ -6,15 +6,19 @@ window.onload = function(){
   let confirm = document.getElementById('save_article');
   if( confirm ) {
     confirm.addEventListener( 'click', function(){
-      let title = document.getElementById('article_title');
+      let title = document.getElementById('article_title').value;
       // console.log(title.value);
+      let author = document.getElementById('article_author').value;
+      let abstract = document.getElementById('article_abstract').value;
+      let kw = document.getElementById('article_kw').value;
+
       let content = editor.txt.text();
       // console.log(content);
       let html = editor.txt.html();
       // console.log(html);
 
       let server_url = '/app/Lib/save-article-data-by-js.php';
-      let send_param = 'html=' + encodeURIComponent( html ) + '&t=' + encodeURIComponent( title.value );
+      let send_param = 'title=' + encodeURIComponent( title ) + '&author=' + encodeURIComponent( author ) + '&abstract=' + encodeURIComponent( abstract ) + '&kw=' + encodeURIComponent( kw ) + '&content=' + encodeURIComponent( content ) + '&html=' + encodeURIComponent( html );
       createXHR( server_url, send_param );
 
     }, false )

@@ -3,11 +3,12 @@
 // 富文本编辑器 wangEditor 图片上传服务器处理
 
 # 上传文件夹位置：仅允许使用$_SERVER['DOCUMENT_ROOT']而不能使用虚拟网址类如http://localhost/upload/img/
-$dir = $_SERVER['DOCUMENT_ROOT'].'/src/data/img/';
+$dir = $_SERVER['DOCUMENT_ROOT'].'/src/upload/';
 
 # 读取显示图片文件位置，仅允许虚拟地址，其地址和$upuloadDir一样，但是浏览器安全策略不允许读取绝对地址
 //$url = 'https://www.lynnzh.top/upload/img/';
-$url = 'http://localhost:8081/src/data/img/';
+$url = 'http://localhost:8081/src/upload/';
+// $url = $_SERVER['DOCUMENT_ROOT'].'/src/upload/img/';
 
 if (!file_exists($dir)) {
     @mkdir($dir);

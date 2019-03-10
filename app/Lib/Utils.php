@@ -9,6 +9,56 @@ class Utils
         // 
     }
 
+    public static function save_data_to_file( $data, $file_type, $file_dir, $file_name )
+    {
+        $url = $file_dir . $file_name . '.' . $file_type;
+        file_put_contents( $url, $data );
+        return $url;
+    }
+
+    public static function get_thumbnail_img( $original_img_path, $thumbnail_img_path, $thumbnail_img_width, $thumbnail_img_height )
+    {
+      $temp = array(
+        1=>'gif', 
+        2=>'jpeg', 
+        3=>'png'
+      );
+      list( $original_img_width, $original_img_height, $tmp ) = getimagesize( $original_img_path );
+      if( !$temp[$tmp] ){
+        return false;
+      }
+      $tmp = $temp[$tmp];
+      $infunc = "imagecreatefrom$tmp";
+      $outfunc = "image$tmp";
+      $original_img = $infunc( $original_img_path );
+      if( $original_img_width / $thumbnail_img_width > $original_img_height / $thumbnail_img_height ){
+        $thumbnail_img_height = $thumbnail_img_width *( $original_img_height / $original_img_width );
+      }else{
+        $thumbnail_img_width = $thumbnail_img_height * ( $original_img_width / $original_img_height );
+      }
+      $thumbnail_img = imagecreatetruecolor( $thumbnail_img_width, $thumbnail_img_height );
+      imagecopyresampled( $thumbnail_img, $original_img, 0, 0, 0, 0, $thumbnail_img_width, $thumbnail_img_height, $original_img_width, $original_img_height );
+      if( $outfunc( $thumbnail_img, $thumbnail_img_path ) ){
+        return true;
+      }else{
+        return false;
+      }
+    }
+
+    public static function get_file_format( $file_name )
+    {
+        $pos_of_last_decimal_point = strrpos( $file_name, '.' );
+        $file_format = substr( $file_name, $pos_of_last_decimal_point );
+        return $file_format;
+    }
+
+    public static function get_remote_img_and_save( $url_string, $remote_img_dir )
+    {
+        $fn = $remote_img_dir . 'remote_img_' . time() . '.jpg';
+        file_put_contents( $fn, file_get_contents( $url_string ));
+        return $fn;
+    }
+
     public static function get_img_url_in_string( $string )
     {
         $arr = Array();
