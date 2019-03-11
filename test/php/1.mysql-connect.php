@@ -14,7 +14,7 @@ $user = 'root';
 $pwd = 'mysql';
 
 try {
-  $db = new PDO($dsn, $user, $pwd);# 默认此时数据库为短连接
+  $db = new PDO($dsn, $user, $pwd,array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));# 默认此时数据库为短连接
   # 进行长连接
   // $db = new PDO($dsn, $user, $pwd, array(PDO::ATTR_PERSISTENT => true));
   echo PHP_EOL.'连接成功！'.PHP_EOL;

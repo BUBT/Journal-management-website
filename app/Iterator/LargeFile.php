@@ -20,7 +20,7 @@ class LargeFile
 
     public function __construct( $file_name, $mode = 'r' )
     {
-        if( !$file_exists( $file_name ) ) {
+        if( !file_exists( $file_name ) ) {
             $message = __METHOD__ . ' : ' . self::ERR_UNABLE . PHP_EOL;
             $message .= strip_tags( $file_name ) . PHP_EOL;
             throw new Exception( $message );

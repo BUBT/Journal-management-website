@@ -61,6 +61,52 @@
                 <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
                     <!-- <img src="/src/img/03.jpeg" alt="" class="img-fluid"> -->
 
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="unprocessed-manuscript-tab" data-toggle="tab" href="#unprocessed-manuscript" role="tab" aria-controls="unprocessed-manuscript"
+                                aria-selected="true">未处理来稿</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="deposit-box-tab" data-toggle="tab" href="#deposit-box" role="tab" aria-controls="deposit-box"
+                                aria-selected="false">存稿箱</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="unprocessed-manuscript" role="tabpanel" aria-labelledby="unprocessed-manuscript-tab">
+                            <!-- 未处理来稿-内容 -->
+                            <!-- <img src="/src/img/01.jpeg" alt="" class="img-fluid"> -->
+                            <table class="table table-dark">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">文件名</th>
+                                        <th scope="col">下载</th>
+                                        <th scope="col">审阅</th>
+                                    </tr>
+                                </thead>
+                                <tbody id='unprocessed-manuscript-list'></tbody>
+                            </table>
+
+                        </div>
+                        <div class="tab-pane fade" id="deposit-box" role="tabpanel" aria-labelledby="deposit-box-tab">
+                            <!-- 存稿箱-内容 -->
+                            <!-- <img src="/src/img/02.jpeg" alt="" class="img-fluid"> -->
+                            <table class="table table-dark">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">文件名</th>
+                                        <th scope="col">收稿时间</th>
+                                        <th scope="col">栏目</th>
+                                        <th scope="col">选择</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="deposit-box-list"></tbody>
+                            </table>
+
+                        </div>
+                    </div>
+
                     <!-- 稿件管理-结束 -->
                 </div>
                 <!-- 文章录入-开始 -->

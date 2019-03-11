@@ -2,11 +2,47 @@
 
 namespace App\Lib;
 
+use RecursiveIteratorIterator;
+use RecursiveDirectoryIterator;
+use RegexIterator;
+
 class Utils
 {
     public function __construct()
     {
         // 
+    }
+
+    public static function show_all_files_in_dir( $path, $pattern = NULL )
+    {
+        $res = array();
+        $rdi = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator( $path, 1 ),
+            RecursiveIteratorIterator::SELF_FIRST
+        );
+        $outerIterator = ($pattern) ? self::regex($rdi, $pattern) : $rdi;
+        $index = 0;
+        foreach ($outerIterator as $name => $obj) {
+            if ($obj->isDir()) {
+                if ($obj->getFileName() == '..') {
+                    continue;
+                }
+                $res[]['name'] = $obj->getPath() . PHP_EOL;
+            } else {
+                $res[$index]['name'] = sprintf( '%-40s', $obj->getFileName() );
+                $res[$index]['url'] = $name;
+            }
+            $index++;
+        }
+    
+        return $res;
+    }
+    
+
+    public static function regex( $iterator, $pattern )
+    {
+        $pattern = '!^.' . str_replace( '.', '\\.', $pattern ) . '$!';
+        return new RegexIterator( $iterator, $pattern );
     }
 
     public static function save_data_to_file( $data, $file_type, $file_dir, $file_name )

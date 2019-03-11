@@ -24,10 +24,26 @@ window.onload = function(){
     }, false )
   }
 
+  let unprocessed_manuscript = document.getElementById('unprocessed-manuscript');
+  if( unprocessed_manuscript ) {
+    getUnprocessedManuscript( unprocessed_manuscript );
+  }
   
 }
 
-// 创建 XMLHttpRequest 对象：createXHR()
+function getUnprocessedManuscript( id_obj ) {
+  let table = '';
+  let server_url = '../../app/Lib/show-all-files-in-dir.php';
+  let send_param = '';
+  let data = createXHR( server_url, send_param );
+  console.log(data);
+
+  if( id_obj ) {
+    id_obj.innerHTML = table;
+  }
+}
+
+// 2.创建 XMLHttpRequest 对象：createXHR()
 function createXHR( server_url, send_param ) {
   let xhr;
   if(window.XMLHttpRequest){
@@ -40,6 +56,7 @@ function createXHR( server_url, send_param ) {
     if(xhr.readyState === 4 && xhr.status === 200){
       let data = JSON.parse(xhr.responseText);
       console.log(data);
+      // return data;
     }
   };
 
@@ -47,7 +64,7 @@ function createXHR( server_url, send_param ) {
   xhr.send(send_param);
 }
 
-// 创建编辑器对象：createEditorObject()
+// 1.创建编辑器对象：createEditorObject()
 function createEditorObject( editor_id, upload_img_server_url ) {
   let E = window.wangEditor;
   let editor = new E( document.getElementById( editor_id ) );
