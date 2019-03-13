@@ -5,9 +5,9 @@ return [
     'type' => 'mysql',
     'host' => '134.175.123.134',
     'port' => 3306,
-    'dbname' => 'journal',
+    'dbname' => 'magazine',
   
-    'dsn' => 'mysql:host=localhost;port=3306;dbname=journal',
+    'dsn' => 'mysql:host=134.175.123.134;port=3306;dbname=magazine',
     'username' => 'root',
     'userpwd' => 'mysql-lynnzh',
     'charset' => 'utf8'
