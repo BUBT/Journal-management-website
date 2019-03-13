@@ -19,32 +19,30 @@ window.onload = function(){
 
       let server_url = '/app/Lib/save-article-data-by-js.php';
       let send_param = 'title=' + encodeURIComponent( title ) + '&author=' + encodeURIComponent( author ) + '&abstract=' + encodeURIComponent( abstract ) + '&kw=' + encodeURIComponent( kw ) + '&content=' + encodeURIComponent( content ) + '&html=' + encodeURIComponent( html );
-      createXHR( server_url, send_param );
+      createXHR( server_url, send_param, function(){
+        alert('保存成功~');
+      } );
 
     }, false )
   }
 
-  let unprocessed_manuscript = document.getElementById('unprocessed-manuscript');
-  if( unprocessed_manuscript ) {
-    getUnprocessedManuscript( unprocessed_manuscript );
-  }
+  
+  let server_url = '/app/Lib/show-all-files-in-dir.php';
+  createXHR(server_url, '', getUnprocessedManuscript);
   
 }
 
-function getUnprocessedManuscript( id_obj ) {
+function getUnprocessedManuscript( data ) {
+  let unprocessed_manuscript_list = document.getElementById('unprocessed-manuscript-list');
   let table = '';
-  let server_url = '../../app/Lib/show-all-files-in-dir.php';
-  let send_param = '';
-  let data = createXHR( server_url, send_param );
-  console.log(data);
-
-  if( id_obj ) {
-    id_obj.innerHTML = table;
-  }
+  data.forEach(element => {
+    table += `<tr><td> </td><td>${element['name']}</td><td><a href='${element['url']}'>下载</a></td><td><button>拒绝</button></td></tr>`
+  });
+  unprocessed_manuscript_list.innerHTML = table;
 }
 
 // 2.创建 XMLHttpRequest 对象：createXHR()
-function createXHR( server_url, send_param ) {
+function createXHR( server_url, send_param, callback ) {
   let xhr;
   if(window.XMLHttpRequest){
     xhr = new XMLHttpRequest();
@@ -55,8 +53,9 @@ function createXHR( server_url, send_param ) {
   xhr.onreadystatechange = function(){
     if(xhr.readyState === 4 && xhr.status === 200){
       let data = JSON.parse(xhr.responseText);
-      console.log(data);
+      // console.log(data);
       // return data;
+      callback( data );
     }
   };
 

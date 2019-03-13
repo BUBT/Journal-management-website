@@ -1,24 +1,65 @@
 "use strict";
 
-// 回调函数：函数在加载中执行
-function loadScript(src, callback) {
-    let script = document.createElement('script');
-    script.src = src;
-    script.onload = () => callback(script);
-    document.head.append(script);
-}
-
-
-
-// 『立即调用函数表达式』（简称为 IIFE）：使用圆括号告诉给 JavaScript，
-// 这个函数是在另一个表达式的上下文中创建的，因此它是一个表达式。它不需要函数名也可以立即调用。
 (function () {
 
-    let message = "Hello";
+    console.log('这是开始');
 
-    alert(message); // Hello
+    setTimeout(function cb() {
+        console.log('这是来自第一个回调的消息');
+    });
+
+    console.log('这是一条消息');
+
+    setTimeout(function cb1() {
+        console.log('这是来自第二个回调的消息');
+    }, 0);
+
+    console.log('这是结束');
 
 })();
+// "这是开始"
+// "这是一条消息"
+// "这是结束"
+// 此处，函数返回了 undefined 
+// "这是来自第一个回调的消息"
+// "这是来自第二个回调的消息"
+
+
+
+// const s = new Date().getSeconds();
+// setTimeout(function() {
+//   // 输出 "2"，表示回调函数并没有在 500 毫秒之后立即执行
+//   alert("Ran after " + (new Date().getSeconds() - s) + " seconds");
+// }, 500);
+// while(true) {
+//   if(new Date().getSeconds() - s >= 2) {
+//     alert("Good, looped for 2 seconds");
+//     break;
+//   }
+// }
+
+
+
+
+// // 回调函数：函数在加载中执行
+// function loadScript(src, callback) {
+//     let script = document.createElement('script');
+//     script.src = src;
+//     script.onload = () => callback(script);
+//     document.head.append(script);
+// }
+
+
+
+// // 『立即调用函数表达式』（简称为 IIFE）：使用圆括号告诉给 JavaScript，
+// // 这个函数是在另一个表达式的上下文中创建的，因此它是一个表达式。它不需要函数名也可以立即调用。
+// (function () {
+
+//     let message = "Hello";
+
+//     alert(message); // Hello
+
+// })();
 
 
 
