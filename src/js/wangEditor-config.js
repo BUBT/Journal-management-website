@@ -1,9 +1,31 @@
 // 富文本编辑器wangEditor的相关配置
 
 window.onload = function(){
+  const sUploadImgHandle = '/app/Lib/wangeditor-upload-img.php';
+  const sSaveAricleDataHandle = '/app/Lib/save-article-data-by-js.php';
+  const sDisplayFilesInDirHandle = '/app/Lib/show-all-files-in-dir.php';
+  const sDeleteFileHandle = '';
 
-  let editor = createEditorObject('editor', '/app/Lib/wangeditor-upload-img.php');
-  let confirm = document.getElementById('save_article');
+  const sEditorIdName = 'editor';
+  const sSubmitArticleIdName = 'save_article';
+  const sArticlePrefix = 'article_';
+  const oArticle = {
+    title: sArticlePrefix + 'title',
+    author: sArticlePrefix + 'author',
+    abstract: sArticlePrefix + 'abstract',
+    kw: sArticlePrefix + 'kw'
+  };
+  // const sArticleTitleIdName = 'article_title';
+  // const sArticleAuthorIdName = 'article_author';
+
+  const sListUnprocessedManuscriptIdName = 'unprocessed-manuscript-list';
+  const sListDepositsIdName = 'deposit-box-list';
+
+
+  // 创建编辑器
+  let editor = createEditorObject(sEditorIdName, sUploadImgHandle);
+  // 提交文章
+  let confirm = document.getElementById(sSubmitArticleIdName);
   if( confirm ) {
     confirm.addEventListener( 'click', function(){
       let title = document.getElementById('article_title').value;
@@ -17,7 +39,7 @@ window.onload = function(){
       let html = editor.txt.html();
       // console.log(html);
 
-      let server_url = '/app/Lib/save-article-data-by-js.php';
+      let server_url = sSaveAricleDataHandle;
       let send_param = 'title=' + encodeURIComponent( title ) + '&author=' + encodeURIComponent( author ) + '&abstract=' + encodeURIComponent( abstract ) + '&kw=' + encodeURIComponent( kw ) + '&content=' + encodeURIComponent( content ) + '&html=' + encodeURIComponent( html );
       createXHR( server_url, send_param, function(){
         alert('保存成功~');
@@ -26,17 +48,34 @@ window.onload = function(){
     }, false )
   }
 
-  
-  let server_url = '/app/Lib/show-all-files-in-dir.php';
-  createXHR(server_url, '', getUnprocessedManuscript);
+  // 显示所有的文件
+  createXHR(sDisplayFilesInDirHandle, '', getUnprocessedManuscript);
+
+  // 删除指定文件
+  // const 
+  // createXHR(sDeleteFileHandle, '', fDelteFile);
+
   
 }
 
+
+// 4.根据ID名删除元素节点
+let deleteLine = function remove_a_line_data_by_click_button(sIdName) {
+  const row = document.getElementById(`lines_${sIdName}`);
+  row.remove();
+}
+
+// 4.根据文件地址，删除该文件
+let fDelteFile = function deleteSubmission( data ) {
+
+}
+
+// 3.利用 Ajax 返回的数据生成表格
 function getUnprocessedManuscript( data ) {
   let unprocessed_manuscript_list = document.getElementById('unprocessed-manuscript-list');
   let table = '';
-  data.forEach(element => {
-    table += `<tr><td> </td><td>${element['name']}</td><td><a href='${element['url']}'>下载</a></td><td><button>拒绝</button></td></tr>`
+  data.forEach((element,index) => {
+    table += `<tr id='lines_${index}'><td> </td><td>${element['name']}</td><td><a href='${element['url']}'>下载</a></td><td><button onClick='deleteLine(${index})'>拒绝</button></td></tr>`
   });
   unprocessed_manuscript_list.innerHTML = table;
 }

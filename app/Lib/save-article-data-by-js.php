@@ -20,7 +20,7 @@ if( $imgs ) {
     $img_format = Utils::get_file_format( $original_img_path );
     $thumbnail_img_width = 200;
     $thumbnail_img_height = 200;
-    $thumbnail_img_path = $_SERVER['DOCUMENT_ROOT'] . '/src/thumbs/' . $title . '_' . $author . '_' . time() . $thumbnail_img_width . '_' . $thumbnail_img_height . $img_format;
+    $thumbnail_img_path = $_SERVER['DOCUMENT_ROOT'] . '/src/thumbs/' . $title . '_' . $author . '_' . time() . '_' . $thumbnail_img_width . '_' . $thumbnail_img_height . $img_format;
     Utils::get_thumbnail_img( $original_img_path, $thumbnail_img_path, $thumbnail_img_width, $thumbnail_img_height );
     $first_img = $thumbnail_img_path;
 
