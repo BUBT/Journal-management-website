@@ -3,7 +3,8 @@ window.onload = function () {
     if (btn) {
         btn.addEventListener('click', function () {
             const url = '/app/Lib/save-data-to-remote-server.php';
-            const send_param = 'data=dsdhsdjskds';
+            // const send_param = 'data=dsdhsdjskds';
+            const send_param = '';
             createXHR(url, send_param, showData);
         });
     }
@@ -23,7 +24,8 @@ function createXHR(server_url, send_param, callback) {
     xhr.open('POST', server_url, true);
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
-            let data = JSON.parse(xhr.responseText);
+            // let data = JSON.parse(xhr.responseText);
+            let data = xhr.responseText;
             // console.log(data);
             // return data;
             callback(data);

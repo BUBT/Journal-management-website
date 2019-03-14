@@ -5,7 +5,7 @@
 // echo 'curl成功';
 
 $files_identifier = 'file';
-$upload_dir = $_SERVER['DOCUMENT_ROOT'] . '/src/upload/';
+$upload_dir = $_SERVER['DOCUMENT_ROOT'] . '/upload/';
 if (!file_exists($upload_dir)) {
     @mkdir($upload_dir);
 }
