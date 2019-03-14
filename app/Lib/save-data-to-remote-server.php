@@ -1,36 +1,63 @@
 <?php
 
 // 保存本地数据至远程服务器（并不在本地产生临时数据，而是直接写入远程服务器）
+// header('content-type:text/plain;charset=utf8');
 
-$str = <<<STRING
-<!-- 垂直导航栏-开始 -->
-            <div class="col-2 nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab"
-                    aria-controls="v-pills-home" aria-selected="false">数据一览</a>
-                <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab"
-                    aria-controls="v-pills-profile" aria-selected="false">作品长廊</a>
-                <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab"
-                    aria-controls="v-pills-messages" aria-selected="false">稿件管理</a>
-                <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab"
-                    aria-controls="v-pills-settings" aria-selected="true">文章录入</a>
-                    <!-- 垂直导航栏-结束 -->
-            </div>
-STRING;
-$tmp_data_key = 'data';// 上传到数组 $_FILES 中的 KEY
-$file_name = 'test.html';// 文件名
-$file_type = 'text/plain';// 文件类型
-// $key = "$tmp_data_key\";filename=\"$file_name\r\nContent-Type: $file_type\r\n";
-// $fileds[$key] = $data;
-$data = array(
-    'file'=>'@' . realpath($file_name) . ";type=text/plain;filename=" . $file_name
-);
-$url = 'https://www.lynnzh.top/upload';
+$str = $_POST['data'] ?? 'dhskdjskds';
+$tmpFile = time() . '.txt';
+file_put_contents($tmpFile, $str);
 
-$ch =curl_init();
-curl_setopt($ch, CURLOPT_URL, $url);
-curl_setopt($ch, CURLOPT_POST, true);
-curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-$content = curl_exec($ch);
-echo $content;
-// unlink($file_name);
+// echo json_encode(realpath($tmpFile), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+$data = makeCurlFile(realpath($tmpFile));
+
+// $data = array('file' => '@' . realpath($tmpFile));
+// $data = array('file' => '@' . realpath($tmpFile) . ";type=text/plain;filename=" . $tmpFile);
+// $data = array('file' => realpath($tmpFile) . ";type=text/plain;filename=" . $tmpFile);
+$remote_url = 'http://localhost/upload.php';
+
+$curl = curl_init();
+echo json_encode('1', JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+curl_setopt($curl, CURLOPT_URL, $remote_url);
+// curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($curl, CURLOPT_POST, true);
+curl_setopt($curl, CURLOPT_SAFE_UPLOAD, true);
+curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+curl_exec($curl);
+curl_close($curl);
+unlink($tmpFile); //删除临时文件
+
+
+// try {
+//     $str = 'dshajkdhskadjjksadsla';
+//     $tmpFile = time() . '.txt';
+//     file_put_contents($tmpFile, $str);
+
+//     // echo json_encode(realpath($tmpFile), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+//     $data = makeCurlFile($tmpFile);
+
+//     // $data = array('file' => '@' . realpath($tmpFile));
+//     // $data = array('file' => '@' . realpath($tmpFile) . ";type=text/plain;filename=" . $tmpFile);
+//     // $data = array('file' => realpath($tmpFile) . ";type=text/plain;filename=" . $tmpFile);
+//     $remote_url = 'http://localhost/upload.php';
+
+//     $curl = curl_init($remote_url);
+//     // curl_setopt($curl, CURLOPT_URL, $remote_url);
+//     // curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+//     curl_setopt($curl, CURLOPT_POST, true);
+//     curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+//     curl_exec($curl);
+//     curl_close($curl);
+//     unlink($tmpFile); //删除临时文件
+// } catch (\Throwable $th) {
+//     //throw $th;
+//     echo json_encode($th);
+// }
+
+
+function makeCurlFile($fileName) {
+    $mime = mime_content_type( $fileName );
+    $info = pathinfo($fileName);
+    $name = $info['basename'];
+    $output = new CURLFile($fileName, $mime, $name);
+    return $output;
+}
