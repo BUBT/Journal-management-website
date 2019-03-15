@@ -1,7 +1,7 @@
 <?php
 
 // 自动加载无效！文件名必须与类名一致！
-namespace Test;
+namespace test;
 
 class Human
 {

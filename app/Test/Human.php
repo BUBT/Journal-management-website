@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Test;
+namespace app\test;
 
 class Human
 {

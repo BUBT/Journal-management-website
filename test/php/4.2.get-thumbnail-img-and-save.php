@@ -2,10 +2,10 @@
 
 // 获取缩略图并保存
 
-$original_img_path = '../src/img/01.jpeg';
+$original_img_path = $_SERVER['DOCUMENT_ROOT'] . '/src/img/01.jpeg';
 $thumbnail_img_width = 200;
 $thumbnail_img_height = 200;
-$thumbnail_img_path = '../src/data/thumb/' . 'thumbnail_' . $thumbnail_img_width . '_' . $thumbnail_img_height . '.jpeg';
+$thumbnail_img_path = $_SERVER['DOCUMENT_ROOT'] . '/src/thumbs/' . 'thumbnail_' . $thumbnail_img_width . '_' . $thumbnail_img_height . '.jpeg';
 
 get_thumbnail_img( $original_img_path, $thumbnail_img_path, $thumbnail_img_width, $thumbnail_img_height );
 header("content-type:image/png");

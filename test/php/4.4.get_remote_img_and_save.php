@@ -4,7 +4,7 @@
 
 function get_remote_img_and_save( $url_string )
 {
-    $fn = 'remote_img_' . time() . '.jpg';
+    $fn = $_SERVER['DOCUMENT_ROOT'] . '/src/upload/remote_img_' . time() . '.jpg';
     file_put_contents( $fn, file_get_contents( $url_string ));
 }
 

@@ -5,7 +5,7 @@
 
 require_once '../../vendor/autoload.php';
 
-use App\Lib\Utils;
+use app\lib\Utils;
 
 $path = $_SERVER['DOCUMENT_ROOT'] . '/src/upload/';
 

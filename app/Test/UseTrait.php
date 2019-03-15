@@ -2,9 +2,9 @@
 
 // 使用特性：关键字 use 
 
-namespace App\Test;
+namespace app\test;
 
-use App\Data\Connection;
+use app\data\Connection;
 
 class UseTrait
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Iterator;
+namespace app\iterator;
 
 use Exception;
 use RecursiveDirectoryIterator;

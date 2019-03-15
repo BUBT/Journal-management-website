@@ -1,7 +1,7 @@
 <?php
 
-require_once '../../vendor/autoload.php';
-use App\Data\Connection;
+require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
+use app\data\Connection;
 
 // 使用迭代器：ArrayIterator对象可以将PHP中标准数组转换为迭代器。
 
@@ -31,6 +31,6 @@ function fetch_human_name( $sql, $connection )
     return $iterator;
 }
 
-$connection = Connection::getInstance('../../src/config/testDB.php');
+$connection = Connection::getInstance('../config/testDB.php');
 $sql = 'SELECT * FROM `single_filed_varchar_label`';
 var_dump( fetch_human_name( $sql, $connection ) );

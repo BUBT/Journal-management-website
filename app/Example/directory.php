@@ -4,7 +4,7 @@ require_once '../../vendor/autoload.php';
 
 define('EXAMPLE_PATH', realpath(__DIR__ . '/../'));
 
-$directory = new App\Iterator\Directory(EXAMPLE_PATH);
+$directory = new app\iterator\Directory(EXAMPLE_PATH);
 try {
     echo 'Mimics "ls -l -R" ' . PHP_EOL;
     foreach ( $directory->ls('*.php') as $info ) {

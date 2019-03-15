@@ -2,8 +2,8 @@
 
 require_once '../../vendor/autoload.php';
 
-use App\Data\Connection;
-use App\Lib\Utils;
+use app\data\Connection;
+use app\lib\Utils;
 
 $title = $_POST['title'] ?? '标题';
 $author = $_POST['author'] ?? '作者';

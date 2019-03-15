@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Lib;
+namespace app\lib;
 
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;

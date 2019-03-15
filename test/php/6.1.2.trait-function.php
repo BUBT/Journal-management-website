@@ -1,11 +1,12 @@
 <?php
 
-require_once '../vendor/autoload.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
 
-use App\Data\Connection;
-use App\Test\UseTrait;
+use app\data\Connection;
+use app\test\UseTrait;
 
-$connection = Connection::getInstance('../app/Config/testDB.php');
+$path = '../../app/config/testDB.php';
+$connection = Connection::getInstance($path);
 $trait = new UseTrait( $connection );
 $list = $trait->listShow();
 var_dump($list);

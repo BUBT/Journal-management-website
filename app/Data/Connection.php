@@ -2,7 +2,7 @@
 
 // 数据库连接-单例模式
 
-namespace App\Data;
+namespace app\data;
 
 use PDO;
 use PDOException;
@@ -12,6 +12,8 @@ class Connection
     const ERROR_UNABLE = '<br>ERROR: 数据库连接失败！<br>';
     private static $instance = NULL;
     private $conn;
+    // const DEFAULT_CONFIG = '../config/testDB.php';
+    const DEFAULT_CONFIG = '../../app/config/testDB.php';
 
     private function __construct($config)
     {
@@ -40,7 +42,7 @@ class Connection
     {
       return $this;
     }
-    public static function getInstance($config = '../Config/testDB.php')
+    public static function getInstance($config = self::DEFAULT_CONFIG)
     {
         if( !self::$instance )
         {

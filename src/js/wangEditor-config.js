@@ -1,9 +1,9 @@
 // 富文本编辑器wangEditor的相关配置
 
 window.onload = function(){
-  const sUploadImgHandle = '/app/Lib/wangeditor-upload-img.php';
-  const sSaveAricleDataHandle = '/app/Lib/save-article-data-by-js.php';
-  const sDisplayFilesInDirHandle = '/app/Lib/show-all-files-in-dir.php';
+  const sUploadImgHandle = '/app/lib/wangeditor-upload-img.php';
+  const sSaveAricleDataHandle = '/app/lib/save-article-data-by-js.php';
+  const sDisplayFilesInDirHandle = '/app/lib/show-all-files-in-dir.php';
   const sDeleteFileHandle = '';
 
   const sEditorIdName = 'editor';

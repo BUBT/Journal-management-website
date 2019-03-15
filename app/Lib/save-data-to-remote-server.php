@@ -10,7 +10,7 @@ file_put_contents($tmpFile, $str);
 
 // 2.远程服务器上传文件接口地址
 // $remote_url = 'http://localhost/upload.php';
-$remote_url = 'http://localhost:8081/app/Lib/upload.php';
+$remote_url = 'http://localhost:8081/app/lib/upload.php';
 
 // 3.创建 CURLFile 对象：被上传文件的绝对地址、被上传文件的 MIME 类型、被上传文件的文件名（在远程服务器上的文件名）
 $cFile = new CURLFile(realpath($tmpFile), 'text/plain', 'test.txt');

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Applet;
+namespace app\applet;
 
 class Base 
 {
@@ -9,7 +9,7 @@ class Base
         return $this;
     }
 
-    public static function code2openid($code, $config = '/app/Config/journalWX.php')
+    public static function code2openid($code, $config = '/app/config/journalWX.php')
     {
         $config = require_once( $config );
         $appid = $config['appid'];

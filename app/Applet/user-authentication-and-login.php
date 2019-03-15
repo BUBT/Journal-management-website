@@ -5,8 +5,8 @@
 
 require_once '/vendor/autoload.php';
 
-use App\Data\Connection;
-use App\Applet\Base;
+use app\data\Connection;
+use app\applet\Base;
 
 $code = $_GET['code'] ?? '';
 $name = $_GET['name'] ?? '';
@@ -17,7 +17,7 @@ if( !empty($code) && !empty($name) && !empty($avatar) ) {
     $openID = Base::code2openid( $code );
     // 2.利用唯一性标识 openID 查询用户是否存在
     $sql_query_is_exist_by_openid = 'SELECT `id` FROM `user` WHERE `user_openID` = ' . $openID;
-    $conn = Connection::getInstance('/app/Config/magazineDB.php');
+    $conn = Connection::getInstance('/app/config/magazineDB.php');
     $stmt = $conn->query( $sql_query_is_exist_by_openid );
     if( $stmt ) {
         // 3.1 用户存在，更新其信息并返回用户 ID

@@ -5,7 +5,7 @@
 // 这类情况的常规处理方式时创建抽象类并扩展它，与特性相比具有一定优势。
 // 特性无法用于确定继承关系，而抽象父类可以做到这一点。
 
-namespace App\Test;
+namespace app\test;
 
 use PDO;
 

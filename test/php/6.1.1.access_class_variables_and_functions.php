@@ -2,9 +2,9 @@
 
 // 访问类属性和方法的测试
 
-require_once '../vendor/autoload.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
 
-use App\Test\StaticClass;
+use app\test\StaticClass;
 
 try {
     $instance = new StaticClass();
