@@ -1,6 +1,7 @@
 <?php
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
+
 use app\data\Connection;
 
 // 使用迭代器：ArrayIterator对象可以将PHP中标准数组转换为迭代器。

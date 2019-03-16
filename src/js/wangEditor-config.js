@@ -1,9 +1,9 @@
 // 富文本编辑器wangEditor的相关配置
 
 window.onload = function(){
-  const sUploadImgHandle = '/app/lib/wangeditor-upload-img.php';
-  const sSaveAricleDataHandle = '/app/lib/save-article-data-by-js.php';
-  const sDisplayFilesInDirHandle = '/app/lib/show-all-files-in-dir.php';
+  const sUploadImgHandle = '/app/instance/wangeditor-upload-img.php';
+  const sSaveAricleDataHandle = '/app/instance/save-article-data-by-js.php';
+  const sDisplayFilesInDirHandle = '/app/instance/show-all-files-in-dir.php';
   const sDeleteFileHandle = '';
 
   const sEditorIdName = 'editor';
@@ -129,7 +129,7 @@ function createEditorObject( editor_id, upload_img_server_url ) {
     'redo'  // 重复
   ]
   editor.customConfig.uploadImgServer = upload_img_server_url;
-  editor.customConfig.uploadFileName = 'upload';
+  editor.customConfig.uploadFileName = 'remote';
   editor.customConfig.uploadImgMaxSize = 5 * 1024 * 1024;
   editor.customConfig.uploadImgHeaders = {
     'Accept': 'text/x-json'
