@@ -4,8 +4,10 @@
 // echo json_encode('你撩到了远程服务器~', JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 // echo 'curl成功';
 
-$files_identifier = 'file';
-$upload_dir = $_SERVER['DOCUMENT_ROOT'] . '/upload/';
+$files_identifier = 'remote';
+$upload_dir = $_SERVER['DOCUMENT_ROOT'] . '/src/upload/';
+$remote_url = 'http://localhost:8081/src/upload/';
+
 if (!file_exists($upload_dir)) {
     @mkdir($upload_dir);
 }
@@ -23,12 +25,14 @@ if ($_FILES) {
     $upload_file_name = $upload_dir . basename($file_name);
     if (move_uploaded_file($file_tmp_name, $upload_file_name)) {
         // echo json_encode('上传成功！', JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-        echo '上传成功';
+        // echo '上传成功';
+        // echo $upload_file_name;
+        echo $remote_url . basename($file_name);
     } else {
         // echo json_encode('上传失败!');
         $data  =  json_encode($_FILES, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
         // echo $data;
-        echo $_FILES;
+        var_dump($_FILES);
     }
 
 } else {

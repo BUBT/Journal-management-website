@@ -28,11 +28,10 @@ window.onload = function(){
   let confirm = document.getElementById(sSubmitArticleIdName);
   if( confirm ) {
     confirm.addEventListener( 'click', function(){
-      let title = document.getElementById('article_title').value;
-      // console.log(title.value);
-      let author = document.getElementById('article_author').value;
-      let abstract = document.getElementById('article_abstract').value;
-      let kw = document.getElementById('article_kw').value;
+      let title = document.getElementById(oArticle.title).value;
+      let author = document.getElementById(oArticle.author).value;
+      let abstract = document.getElementById(oArticle.abstract).value;
+      let kw = document.getElementById(oArticle.kw).value;
 
       let content = editor.txt.text();
       // console.log(content);
@@ -93,7 +92,6 @@ function createXHR( server_url, send_param, callback ) {
     if(xhr.readyState === 4 && xhr.status === 200){
       let data = JSON.parse(xhr.responseText);
       // console.log(data);
-      // return data;
       callback( data );
     }
   };
