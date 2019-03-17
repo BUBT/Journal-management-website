@@ -24,6 +24,29 @@ class RemoteFiles
         // 
     }
 
+    public function downloadFileByLink(
+        $path = ''
+    )
+    {
+        header('Content-Description: File Transfer'); //描述页面返回的结果
+        header('Content-Type: application/octet-stream'); //返回内容的类型，此处只知道是二进制流。具体返回类型可参考http://tool.oschina.net/commons
+        header('Content-Disposition: attachment; filename='.basename($file));//可以让浏览器弹出下载窗口
+        header('Content-Transfer-Encoding: binary');//内容编码方式，直接二进制，不要gzip压缩
+        header('Expires: 0');//过期时间
+        header('Cache-Control: must-revalidate');//缓存策略，强制页面不缓存，作用与no-cache相同，但更严格，强制意味更明显
+        header('Pragma: public');
+        header('Content-Length: ' . filesize($file));//文件大小，在文件超过2G的时候，filesize()返回的结果可能不正确
+
+        set_time_limit(0);
+        $file = @fopen($file_path,"rb");
+        while(!feof($file))
+        {
+            print(@fread($file, 1024*8));
+            ob_flush();
+            flush();
+        }
+    }
+
     /**
      * RemoteFiles->displayFilesListInDir() 显示某个目录下特定类型的文件列表
      *
@@ -43,7 +66,7 @@ class RemoteFiles
             new RecursiveDirectoryIterator( $path, 1 ),
             RecursiveIteratorIterator::SELF_FIRST
         );
-        $outerIterator = ($pattern) ? self::regex($rdi, $pattern) : $rdi;
+        $outerIterator = ($pattern) ? self::_regex($rdi, $pattern) : $rdi;
         $index = 0;
         foreach ($outerIterator as $name => $obj) {
             if ($obj->isDir()) {
@@ -69,12 +92,19 @@ class RemoteFiles
      * @param string $pattern                        正则表达式
      * @return void                                  返回基于正则表达式过滤另一个迭代器的迭代器
      */
-    public static function regex( 
+    public static function _regex( 
         RecursiveIteratorIterator $iterator, 
         $pattern = ''
     )
     {
         $pattern = '!^.' . str_replace( '.', '\\.', $pattern ) . '$!';
         return new RegexIterator( $iterator, $pattern );
+    }
+
+
+    public static function _getFileFormat($file_name)
+    {
+        $pos_of_last_decimal_point = strrpos( $file_name, '.' );
+        return substr( $file_name, $pos_of_last_decimal_point );
     }
 }
