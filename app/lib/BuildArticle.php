@@ -14,6 +14,6 @@ class BuildArticle
         $thumbnail_img_url = ''
     )
     {
-
+        
     }
 }

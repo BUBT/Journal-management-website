@@ -38,7 +38,7 @@ class UploadPort
 
         if ($_FILES) {
             $format = substr(basename($_FILES[$files_symbol]['name']), strrpos( $_FILES[$files_symbol]['name'], '.' ));
-            $file_name  = 'upload_' . time() . '.' . $format;
+            $file_name  = 'upload_' . time() . $format;
             $file_tmp_name = $_FILES[$files_symbol]['tmp_name'];
             $upload_to_url = $server_dir . basename($file_name);
 

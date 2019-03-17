@@ -38,8 +38,8 @@ $file_name = $title . '_' . $author . '_' . time();
 $file_type = 'html';
 $file_url = Utils::save_data_to_file( $html, $file_type, $file_dir, $file_name );
 
-// 3.保存数据至数据库记录
-$db_name = '`test`';
+// 3.保存数据至数据库记录(暂不保存)
+$db_name = '`journal`';
 $table_name = '`article`';
 $table_cols = array(
     '`title`', '`author`', '`abstract`', '`keywords`', '`content`', '`first_img`', '`file_url`'

@@ -7,7 +7,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
 use app\lib\Remote;
 
 $remote = Remote::upload_image(
-    'http://localhost/app/instance/upload.php',
+    // 'http://localhost/app/instance/upload.php',
+    'http://localhost:8081/app/instance/upload.php',
     'remote'
 );
 

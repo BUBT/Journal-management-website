@@ -5,6 +5,7 @@ window.onload = function(){
   const sSaveAricleDataHandle = '/app/instance/save-article-data-by-js.php';
   const sDisplayFilesInDirHandle = '/app/instance/show-all-files-in-dir.php';
   const sDeleteFileHandle = '';
+  const sDisplayDepositListHandle = '/app/instance/show-deposit-list.php';
 
   const sEditorIdName = 'editor';
   const sSubmitArticleIdName = 'save_article';
@@ -54,7 +55,17 @@ window.onload = function(){
   // const 
   // createXHR(sDeleteFileHandle, '', fDelteFile);
 
-  
+  createXHR(sDisplayDepositListHandle, '', showDepositFiles);
+}
+
+// 5.显示存稿箱中的文件列表
+let showDepositFiles = function show_deposit_list( data ) {
+  let deposit_list = document.getElementById('deposit-box-list');
+  let table = '';
+  data.forEach((element, index) => {
+  table += `<tr><td>${index + 1}</td><td>${element['name']}</td><td>${element['time']}</td><td><select id='article_column'></select></td> </td></tr>`;
+  });
+  deposit_list.innerHTML = table;
 }
 
 
@@ -74,7 +85,7 @@ function getUnprocessedManuscript( data ) {
   let unprocessed_manuscript_list = document.getElementById('unprocessed-manuscript-list');
   let table = '';
   data.forEach((element,index) => {
-    table += `<tr id='lines_${index}'><td> </td><td>${element['name']}</td><td><a href='${element['url']}'>下载</a></td><td><button onClick='deleteLine(${index})'>拒绝</button></td></tr>`
+    table += `<tr id='lines_${index}'><td>${index + 1}</td><td>${element['name']}</td><td><a href='${element['url']}' download='${element['name']}'>下载</a></td><td><button onClick='deleteLine(${index})'>拒绝</button></td></tr>`
   });
   unprocessed_manuscript_list.innerHTML = table;
 }

@@ -35,6 +35,11 @@ class Remote
         // 
     }
 
+    public static function display_files_list()
+    {
+        
+    }
+
     /**
      * Remote::upload_text()      远程上传纯文本文件
      *

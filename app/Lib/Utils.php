@@ -13,7 +13,7 @@ class Utils
         // 
     }
 
-    public static function show_all_files_in_dir( $path, $pattern = NULL )
+    public static function show_all_files_in_dir( $path, $url, $pattern = NULL )
     {
         $res = array();
         $rdi = new RecursiveIteratorIterator(
@@ -30,7 +30,9 @@ class Utils
                 $res[]['name'] = $obj->getPath() . PHP_EOL;
             } else {
                 $res[$index]['name'] = sprintf( '%-40s', $obj->getFileName() );
-                $res[$index]['url'] = $name;
+                // $res[$index]['url'] = $name;
+                $res[$index]['url'] = $url . sprintf( '%-40s', $obj->getFileName() );
+                $res[$index]['time'] = date('Y-m-d H:i', $obj->getATime());
             }
             $index++;
         }
