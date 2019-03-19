@@ -1,0 +1,1 @@
+INSERT INTO journal.article(`title`,`author`,`abstract`,`keywords`,`content`,`first_img`,`file_url`) VALUES('标题','作者','摘要','关键字','内容','http://localhost:8081/src/thumbs/thumb_test.jpg','http://localhost:8081/src/issues/标题_作者_testd8923232.html')

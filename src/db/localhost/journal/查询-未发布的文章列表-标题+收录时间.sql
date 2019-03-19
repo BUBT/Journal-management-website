@@ -1,0 +1,1 @@
+UPDATE `journal`.`article` SET `title` = '标题', `author` = '作者', `abstract` = '摘要', `keywords` = '关键字', `content` = '内容', `first_img` = 'http://localhost:8081/src/thumbs/thumb_test.jpg', `file_url` = 'http://localhost:8081/src/issues/标题_作者_testd8923232.html', `recevied_date` = '2019-03-19 15:41:14', `is_issue` = 0 WHERE `aid` = 2;
