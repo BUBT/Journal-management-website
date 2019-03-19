@@ -65,7 +65,8 @@ class Remote
         // 2.创建 CURLFile 对象：被上传文件的绝对地址、被上传文件的 MIME 类型、被上传文件的文件名（在远程服务器上的文件名）
         $cFile = new CURLFile(
             realpath($tmpFile), 
-            self::file_mime[$file_type],
+            // self::file_mime[$file_type],
+            'text/html',
             $file_name
         );
         $data = array(

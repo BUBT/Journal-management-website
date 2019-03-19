@@ -21,15 +21,15 @@ class UploadPort
     /**
      * UploadPort::upload            服务器上传文件接口
      *
+     * @param string $files_symbol   文件上传标识，默认为 upload，这表明了上传的来源
      * @param string $rmeote_url     服务器目录远程地址，如 'http://localhost/src/upload/'
      * @param string $server_dir     文件上传服务器目录，如 '../../src/upload/'
-     * @param string $files_symbol   文件上传标识，默认为 remote
-     * @return void
+     * @return void                  成功时返回上传文件的 URL
      */
     public static function upload(
+        $files_symbol = 'upload',
         $remote_url = 'http://localhost/src/upload/',
-        $server_dir = '../../src/upload/',
-        $files_symbol = 'remote'
+        $server_dir = '../../src/upload/'
     )
     {
         if( !file_exists($server_dir) ) {
@@ -38,7 +38,7 @@ class UploadPort
 
         if ($_FILES) {
             $format = substr(basename($_FILES[$files_symbol]['name']), strrpos( $_FILES[$files_symbol]['name'], '.' ));
-            $file_name  = 'upload_' . time() . $format;
+            $file_name  = $files_symbol . '_' . time() . $format;
             $file_tmp_name = $_FILES[$files_symbol]['tmp_name'];
             $upload_to_url = $server_dir . basename($file_name);
 

@@ -8,8 +8,8 @@ use app\lib\Remote;
 
 $remote = Remote::upload_image(
     // 'http://localhost/app/instance/upload.php',
-    'http://localhost:8081/app/instance/upload.php',
-    'remote'
+    'http://localhost:8081/dev/_upload_image.php',
+    'upload'
 );
 
 if($remote) {

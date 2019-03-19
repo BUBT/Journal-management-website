@@ -9,7 +9,8 @@ return [
   
     'dsn' => 'mysql:host=localhost;port=3306;dbname=journal',
     'username' => 'root',
-    'userpwd' => 'mysql-lynnzh',
+    // 'userpwd' => 'mysql-lynnzh',
+    'userpwd' => 'mysql',
     'charset' => 'utf8'
     
 ];

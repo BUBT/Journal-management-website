@@ -38,10 +38,23 @@ class Connection
         }
         return $this;
     }
+
+    /**
+     * __clone()      防止克隆实例
+     *
+     * @return void
+     */
     private function __clone()
     {
       return $this;
     }
+
+    /**
+     * Connection::getInstance()     获取连接数据库实例
+     * 
+     * @param String $config         数据库连接配置文件地址，默认为 '../../app/config/testDB.php'
+     * @return void
+     */
     public static function getInstance($config = self::DEFAULT_CONFIG)
     {
         if( !self::$instance )
@@ -51,11 +64,16 @@ class Connection
         return self::$instance;
     }
 
-    // 封装查询的一些方法：query exec prepare
-    public function query( $sql )
+    /**
+     * Connection->query()        封装查询的一些方法：query exec prepare
+     *
+     * @param string $sql         查询语句
+     * @return void
+     */
+    public function query( $sql = '' )
     {
         if( $sql && $sql !== '' ) {
-            $stmt = $this->conn->query( $sql );
+            $stmt = $this->conn->query($sql);
             return $stmt;
         }
         return NULL;

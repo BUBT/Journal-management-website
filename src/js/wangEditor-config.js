@@ -2,10 +2,13 @@
 
 window.onload = function(){
   const sUploadImgHandle = '/app/instance/wangeditor-upload-img.php';
+  // const sUploadImgHandle = '/dev/_upload_image.php';
   const sSaveAricleDataHandle = '/app/instance/save-article-data-by-js.php';
-  const sDisplayFilesInDirHandle = '/app/instance/show-all-files-in-dir.php';
+  // const sDisplayFilesInDirHandle = '/app/instance/show-all-files-in-dir.php';
+  const sDisplayFilesInDirHandle = '/dev/_output_specified_type_files.php';
   const sDeleteFileHandle = '';
-  const sDisplayDepositListHandle = '/app/instance/show-deposit-list.php';
+  // const sDisplayDepositListHandle = '/app/instance/show-deposit-list.php';
+  const sDisplayDepositListHandle = '/dev/_output_all_no_issues.php';
 
   const sEditorIdName = 'editor';
   const sSubmitArticleIdName = 'save_article';
@@ -58,12 +61,22 @@ window.onload = function(){
   createXHR(sDisplayDepositListHandle, '', showDepositFiles);
 }
 
+// 6.下载文件
+let downloadFile = function download_file($path) {
+
+}
+
 // 5.显示存稿箱中的文件列表
 let showDepositFiles = function show_deposit_list( data ) {
   let deposit_list = document.getElementById('deposit-box-list');
   let table = '';
   data.forEach((element, index) => {
-  table += `<tr><td>${index + 1}</td><td>${element['name']}</td><td>${element['time']}</td><td><select id='article_column'></select></td> </td></tr>`;
+  table += `<tr>
+    <td>${index + 1}</td>
+    <td>${element['title']}</td>
+    <td>${element['time']}</td>
+    <td><select id='article_column'></select></td>
+  </tr>`;
   });
   deposit_list.innerHTML = table;
 }
@@ -85,7 +98,12 @@ function getUnprocessedManuscript( data ) {
   let unprocessed_manuscript_list = document.getElementById('unprocessed-manuscript-list');
   let table = '';
   data.forEach((element,index) => {
-    table += `<tr id='lines_${index}'><td>${index + 1}</td><td>${element['name']}</td><td><a href='${element['url']}' download="${element['name']}">下载</a></td><td><button onClick='deleteLine(${index})'>拒绝</button></td></tr>`
+    table += `<tr id='lines_${index}'>
+      <td>${index + 1}</td>
+      <td>${element['name']}</td>
+      <td><a href='${element['url']}' download="${element['name']}">下载</a></td>
+      <td><button onClick='deleteLine(${index})'>拒绝</button></td>
+    </tr>`
   });
   unprocessed_manuscript_list.innerHTML = table;
 }
@@ -140,7 +158,7 @@ function createEditorObject( editor_id, upload_img_server_url ) {
     'redo'  // 重复
   ]
   editor.customConfig.uploadImgServer = upload_img_server_url;
-  editor.customConfig.uploadFileName = 'remote';
+  editor.customConfig.uploadFileName = 'upload';
   editor.customConfig.uploadImgMaxSize = 5 * 1024 * 1024;
   editor.customConfig.uploadImgHeaders = {
     'Accept': 'text/x-json'
