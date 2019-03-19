@@ -35,9 +35,39 @@ class Remote
         // 
     }
 
-    public static function display_files_list()
+    public static function upload_binary(
+        $file_path = '/src/thumbs/thumb_test2902212.jpg',
+        $remote_upload_port_url = 'http://localhost:8081/dev/upload_thumb.php', 
+        $files_symbol = 'thumb'
+    )
     {
-        
+        $file_name = 'thumb_' . time() . '.jpg';
+        // 2.创建 CURLFile 对象：被上传文件的绝对地址、被上传文件的 MIME 类型、被上传文件的文件名（在远程服务器上的文件名）
+        $cFile = new CURLFile(
+            realpath($file_path), 
+            // self::file_mime[$file_type],
+            'image/jpeg',
+            $file_name
+        );
+        $data = array(
+            $files_symbol => $cFile
+        );
+
+        // 3.创建 cURL 句柄，并开始传输数据（从PHP 5.5 开始，cURL只能通过发送 CURLFile 数据）
+        $curl = curl_init( $remote_upload_port_url );
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+
+        // 返回远程服务器输出结果的字符串形式
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $res = curl_exec($curl);
+        curl_close($curl);
+
+        // 4.删除保存在本地服务器的临时文件
+        // unlink($file_path);
+
+        // 5.返回 cURL 的结果：字符串
+        return $res;
     }
 
     /**
@@ -56,7 +86,7 @@ class Remote
         $file_type = 'html',
         $file_name = '文件名.html',
         $remote_upload_port_url = 'http://localhost/app/remote/upload.php', 
-        $files_symbol = 'remote' )
+        $files_symbol = 'issues' )
     {
         // 1.获取数据并写入临时文件
         $tmpFile = time() . '.' . $file_type;
@@ -101,7 +131,7 @@ class Remote
      */
     public static function upload_image( 
         $remote_upload_port_url = 'http://localhost:8081/app/instance/upload.php', 
-        $files_symbol = 'remote' )
+        $files_symbol = 'upload' )
     {
         // // 1.获取数据并重命名文件
         $tmpFile = $_FILES[$files_symbol]['tmp_name'];

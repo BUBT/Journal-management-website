@@ -9,6 +9,7 @@ use app\lib\UploadPort;
 
 $upload_files_symbol = 'upload';
 $upload_remote_url = 'http://localhost:8081/src/upload/';
+// $upload_remote_url = 'http://localhost/src/upload/';
 $server_remote_dir = '../src/upload/';
 
 $remote = UploadPort::upload(

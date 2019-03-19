@@ -6,9 +6,11 @@ window.onload = function(){
   const sSaveAricleDataHandle = '/app/instance/save-article-data-by-js.php';
   // const sDisplayFilesInDirHandle = '/app/instance/show-all-files-in-dir.php';
   const sDisplayFilesInDirHandle = '/dev/_output_specified_type_files.php';
-  const sDeleteFileHandle = '';
+  // const sDeleteFileHandle = '';
   // const sDisplayDepositListHandle = '/app/instance/show-deposit-list.php';
   const sDisplayDepositListHandle = '/dev/_output_all_no_issues.php';
+
+  const sDisplayTagsList = '/dev/_output_tags_array.php';
 
   const sEditorIdName = 'editor';
   const sSubmitArticleIdName = 'save_article';
@@ -54,16 +56,30 @@ window.onload = function(){
   // 显示所有的文件
   createXHR(sDisplayFilesInDirHandle, '', getUnprocessedManuscript);
 
-  // 删除指定文件
-  // const 
-  // createXHR(sDeleteFileHandle, '', fDelteFile);
-
+  // 显示存稿箱中的文件
   createXHR(sDisplayDepositListHandle, '', showDepositFiles);
+
+  // 显示栏目列表
+  createXHR('/dev/_output_tags_array.php', '', showTagsList);
+
+  // 提交存稿箱的更改
+}
+
+
+
+// 7.显示所有的栏目
+let showTagsList = function show_tags_list( data ) {
+  let article_column = document.getElementById('article_column');
+  let str = '';
+  data.forEach((element, index) => {
+    str += `<option value='${element['tid']}'>${element['tag']}</option>`
+  });
+  article_column.innerHTML = str;
 }
 
 // 6.下载文件
 let downloadFile = function download_file($path) {
-
+  // 暂不使用
 }
 
 // 5.显示存稿箱中的文件列表
@@ -76,6 +92,7 @@ let showDepositFiles = function show_deposit_list( data ) {
     <td>${element['title']}</td>
     <td>${element['time']}</td>
     <td><select id='article_column'></select></td>
+    <td><input type='checkbox'></td>
   </tr>`;
   });
   deposit_list.innerHTML = table;
@@ -83,14 +100,15 @@ let showDepositFiles = function show_deposit_list( data ) {
 
 
 // 4.根据ID名删除元素节点
-let deleteLine = function remove_a_line_data_by_click_button(sIdName) {
+let deleteLine = function remove_a_line_data_by_click_button(sIdName, url) {
   const row = document.getElementById(`lines_${sIdName}`);
   row.remove();
+  createXHR('/dev/_delete_file_by_path.php', 'delete=' + url, function(){});
 }
 
-// 4.根据文件地址，删除该文件
+// TODO:4.根据文件地址，删除该文件
 let fDelteFile = function deleteSubmission( data ) {
-
+  // 待办
 }
 
 // 3.利用 Ajax 返回的数据生成表格
@@ -102,7 +120,7 @@ function getUnprocessedManuscript( data ) {
       <td>${index + 1}</td>
       <td>${element['name']}</td>
       <td><a href='${element['url']}' download="${element['name']}">下载</a></td>
-      <td><button onClick='deleteLine(${index})'>拒绝</button></td>
+      <td><button onClick="deleteLine(${index}, '${element['url']}')">拒绝</button></td>
     </tr>`
   });
   unprocessed_manuscript_list.innerHTML = table;
@@ -139,7 +157,7 @@ function createEditorObject( editor_id, upload_img_server_url ) {
     'head',  // 标题
     'bold',  // 粗体
     'fontSize',  // 字号
-    'fontName',  // 字体
+    // 'fontName',  // 字体
     'italic',  // 斜体
     'underline',  // 下划线
     // 'strikeThrough',  // 删除线
@@ -154,8 +172,8 @@ function createEditorObject( editor_id, upload_img_server_url ) {
     'table',  // 表格
     // 'video',  // 插入视频
     'code',  // 插入代码
-    'undo',  // 撤销
-    'redo'  // 重复
+    // 'undo',  // 撤销
+    // 'redo'  // 重复
   ]
   editor.customConfig.uploadImgServer = upload_img_server_url;
   editor.customConfig.uploadFileName = 'upload';

@@ -3,28 +3,26 @@
 require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
 
 use app\lib\Utils;
-use app\lib\Remote;
 
-// $remote_url = 'http://localhost:8081/src/img/01.jpeg';
-// // $thumbnail_img_full_path = $_SERVER['DOCUMENT_ROOT'] . '/src/thumbs/thumbnail_' . time() . '.jpg';
-// $thumbnail_img_full_path = 'http://localhost/src/thumbs/thumbnail_' . time() . '.jpg';
-
-// $test = Utils::get_thumbnail_img(
-//     $remote_url,
-//     $thumbnail_img_full_path,
-//     200,
-//     200
-// );
+$url = 'http://localhost:8081';
+$path = $_SERVER['DOCUMENT_ROOT'];
 
 
-$upload_server_url = 'http://localhost:8081/dev/upload_thumb.php';
-$files_symbol = 'thumb';
+$original_img_path = '../../src/img/01.jpeg';
 
-$_FILES[$files_symbol]['tmp_name'] = 'http://localhost:8081/src/img/01.jpeg';
+$original_img_path = 'https://upload-images.jianshu.io/upload_images/3409462-54991503871b1d1a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/489/format/webp';
+$tmp_name = time() . '.png';
+file_put_contents($tmp_name, file_get_contents($original_img_path));
 
-$remote  = Remote::upload_image(
-    $upload_server_url,
-    $files_symbol
+
+$img_format = Utils::get_file_format( basename($tmp_name) );
+$thumb_dir = '/src/thumbs/thumb_' . time() . $img_format;
+
+Utils::get_thumbnail_img(
+    $tmp_name,
+    $path . $thumb_dir,
+    200,
+    200
 );
 
-var_dump($remote);
+echo $url . $thumb_dir;
