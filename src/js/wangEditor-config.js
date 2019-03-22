@@ -3,7 +3,8 @@
 window.onload = function(){
   const sUploadImgHandle = '/app/instance/wangeditor-upload-img.php';
   // const sUploadImgHandle = '/dev/_upload_image.php';
-  const sSaveAricleDataHandle = '/app/instance/save-article-data-by-js.php';
+  // const sSaveAricleDataHandle = '/app/instance/save-article-data-by-js.php';
+  const sSaveAricleDataHandle = '/dev/_insert_article_data.php';
   // const sDisplayFilesInDirHandle = '/app/instance/show-all-files-in-dir.php';
   const sDisplayFilesInDirHandle = '/dev/_output_specified_type_files.php';
   // const sDeleteFileHandle = '';
@@ -69,7 +70,8 @@ window.onload = function(){
 
 // 7.显示所有的栏目
 let showTagsList = function show_tags_list( data ) {
-  let article_column = document.getElementById('article_column');
+  // let article_column = document.getElementById('article_column');
+  let article_column = document.getElementsByClassName('article_column');
   let str = '';
   data.forEach((element, index) => {
     str += `<option value='${element['tid']}'>${element['tag']}</option>`
@@ -91,7 +93,7 @@ let showDepositFiles = function show_deposit_list( data ) {
     <td>${index + 1}</td>
     <td>${element['title']}</td>
     <td>${element['time']}</td>
-    <td><select id='article_column'></select></td>
+    <td><select class='article_column'></select></td>
     <td><input type='checkbox'></td>
   </tr>`;
   });

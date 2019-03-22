@@ -18,7 +18,10 @@ $html = $_POST['html'] ?? 'HTML字符串';
 $url = Remote::upload_text($html, 'html', $title . '_' . $author . '.html', 'http://localhost:8081/dev/_upload_text.php');
 $imgsArr = Utils::get_img_url_in_string($html);
 if($imgsArr) {
-    
+    $imgPath = Utils::get_thumbnail_img($imgsArr[0], '/src/thumbs/thumb_' . time() . Utils::get_file_mime($imgsArr[0]));
+    $img = Utils::path_to_url($imgPath, 'http://localhost:8081/src/thumbs/');
+} else {
+    $img = NULL;
 }
 
 // $title = '标题';
@@ -26,7 +29,7 @@ if($imgsArr) {
 // $abstract = '摘要';
 // $kw = '关键字';
 // $content = '内容';
-$img = 'http://localhost:8081/src/thumbs/thumb_test.jpg';
+// $img = 'http://localhost:8081/src/thumbs/thumb_test.jpg';
 // $url = 'http://localhost:8081/src/issues/标题_作者_testd8923232.html';
 
 
@@ -56,4 +59,6 @@ $vals = [
 ];
 
 $sql = 'INSERT INTO ' . $dbname . '.' . $tbname . '(`' . implode('`,`', $cols) . '`) VALUES(' ."'" . implode("','", $vals ) . "')";
-echo $sql;
+// echo $sql;
+$res = $conn->query($sql);
+echo json_encode($res, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);

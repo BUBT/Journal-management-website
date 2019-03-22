@@ -15,6 +15,32 @@ class Utils
     }
 
 
+    /**
+     * Utils::path_to_url()    路径转URL
+     *
+     * @param string $path     文件本地全路径
+     * @param string $url      远程服务器文件夹地址
+     * @return void            返回 URL 全地址
+     */
+    public static function path_to_url(
+      $path = '/src/thumbs/thumb_1553257628.jpeg', 
+      $url = 'http://localhost:8081/src/thumbs/thumb_1553257628.jpeg'
+      )
+    {
+      $filename = basename($path);
+      return $url . $filename;
+    }
+
+
+    /**
+     * Utils::get_thumbnail_img()               获取图片的缩略图
+     *
+     * @param string $original_img_path         原图地址
+     * @param string $thumbnail_img_path        生成的缩略图地址
+     * @param integer $thumbnail_img_width      要求的缩略图宽度
+     * @param integer $thumbnail_img_height     要求的缩略图高度
+     * @return void                             返回缩略图路径
+     */
     public static function get_thumbnail_img( 
       $original_img_path = '', 
       $thumbnail_img_path = '', 
@@ -24,9 +50,9 @@ class Utils
     {
       $temp = array(
         1=>'gif', 
-        2=>'jpg', 
+        2=>'jpeg', 
         3=>'png',
-        15=>'webp'
+        18=>'webp'
       );
       list( $original_img_width, $original_img_height, $tmp ) = getimagesize( $original_img_path );
       if( !$temp[$tmp] ){
@@ -44,7 +70,7 @@ class Utils
       $thumbnail_img = imagecreatetruecolor( $thumbnail_img_width, $thumbnail_img_height );
       imagecopyresampled( $thumbnail_img, $original_img, 0, 0, 0, 0, $thumbnail_img_width, $thumbnail_img_height, $original_img_width, $original_img_height );
       if( $outfunc( $thumbnail_img, $thumbnail_img_path ) ){
-        return true;
+        return $thumbnail_img_path;
       }else{
         return false;
       }
