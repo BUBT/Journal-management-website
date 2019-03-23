@@ -9,7 +9,7 @@ class Applet
         return $this;
     }
 
-    public static function code2openid($code, $config = '/app/config/journalWX.php')
+    public static function code2openid($code, $config = '../config/journalWX.php')
     {
         $config = require_once( $config );
         $appid = $config['appid'];

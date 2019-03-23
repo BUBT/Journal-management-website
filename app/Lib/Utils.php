@@ -14,6 +14,31 @@ class Utils
         // 
     }
 
+    /**
+     * timeInterval()         距离现在的时间间隔
+     *
+     * @param string $time    时间字符串
+     * @return void           返回时间间隔字符串
+     */
+    public static function timeInterval($time = '2019-03-18 02:10:18')
+    {
+      $time = strtotime($time);
+      $interval = (time() - $time);
+      if($interval < 60) {
+          return $interval . ' 秒前';
+      } elseif(60 < $interval && $interval < 60*60) {
+          return round($interval / 60) . ' 分钟前';
+      } elseif(60*60 < $interval && $interval < 60*60*24) {
+          return round($interval / (60*60)) . ' 小时前';
+      } elseif(60*60*24 < $interval && $interval < 60*60*24*30) {
+          return round($interval / (60*60*24)) . ' 天前';
+      } elseif(60*60*24*30 < $interval && $interval < 60*60*24*30*12) {
+          return round($interval / (60*60*24*30)) .  ' 个月前';
+      } else {
+          return round($interval / (60*60*24*365)) .  ' 年前';
+      }
+    }
+
 
     /**
      * Utils::path_to_url()    路径转URL
