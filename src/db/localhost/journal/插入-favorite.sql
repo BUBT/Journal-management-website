@@ -1,0 +1,1 @@
+INSERT INTO `journal`.`favorite`(`uid`, `aid`) VALUES(1, 1)

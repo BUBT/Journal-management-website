@@ -1,0 +1,1 @@
+DELETE FROM `journal`.`favorite` WHERE `uid` = 1 AND `aid` = 1;
