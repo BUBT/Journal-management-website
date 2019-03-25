@@ -33,7 +33,7 @@ if($tid != 0) {
             foreach ($stmt2 as $key => $value) {
                 $arr[] = $value['aid'];
             }
-            $sql3 = 'SELECT `aid`, `title`, `abstract`, `author`, `first_img`, `view`, `star` AS `img`, `recevied_date` AS `time` FROM `article` WHERE `is_issue` = 1 AND `aid` IN(' . implode(",", $arr) . ')';
+            $sql3 = 'SELECT `aid`, `title`, `abstract`, `author`, `first_img`, `view`, `star`, `recevied_date` AS `time` FROM `article` WHERE `is_issue` = 1 AND `aid` IN(' . implode(",", $arr) . ')';
             $stmt3 = $conn->query($sql3)->fetchAll(PDO::FETCH_ASSOC);
             foreach ($stmt3 as $key => $value) {
                 $stmt3[$key]['time'] = Utils::timeInterval($value['time']);
@@ -70,4 +70,8 @@ if($tid != 0) {
 
     // var_dump($stmt2);
     echo json_encode($stmt, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+}  else {
+    $tips = '未收到数据！';
+    echo json_encode($tips, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    // echo $tips;
 }
