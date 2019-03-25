@@ -7,7 +7,7 @@
  * 路径：app/applet/index_latest_release.php
  * 方法：latestRelease()
  * 
- * 返回：最新发布文章列表(aid title abstract first_img author recevied_date is_favorite tag )
+ * 返回：最新发布文章列表(aid title abstract first_img author recevied_date favorite tag )
  */
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
