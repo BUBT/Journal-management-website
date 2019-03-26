@@ -5,7 +5,7 @@
  * 
  * 切换“喜欢”状态
  * 路径：app/applet/base_switch_favorite.php
- * 方法：like()
+ * 方法：switchFavorite()
  * 
  * 返回：该用户现在对该文章的喜爱状态
  */
