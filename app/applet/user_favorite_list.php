@@ -7,7 +7,7 @@
  * 路径：app/applet/user_favorite_list.php
  * 方法：myFavorites()
  * 
- * 返回：articles[ aid title favorite ]
+ * 返回：favorites[ aid title favorite ]
  */
 
 
