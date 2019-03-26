@@ -22,16 +22,16 @@ $tid = $_GET['tid'] ?? 0;
 $subscribe = $_GET['subscribe'] ?? false;
 
 if($uid != 0) {
-    if($subscribe) {
+    if($subscribe == 'true') {
         // 用户已订阅，则删除订阅
         delSubscribe($uid, $tid);
         echo json_encode(false, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-    } else {
+    } elseif($subscribe == 'false') {
         // 用户未订阅，则添加订阅
         addSubscribe($uid, $tid);
         echo json_encode(true, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     }
-    // echo json_encode($stmt, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    // echo json_encode(true, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 } else {
     $tips = '未收到数据！';
     echo json_encode($tips, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
