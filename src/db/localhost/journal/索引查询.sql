@@ -1,0 +1,1 @@
+EXPLAIN SELECT `tid`,`tag` FROM `tags` WHERE `tag` LIKE '海南%';
