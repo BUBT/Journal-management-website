@@ -1,76 +1,87 @@
 'use strict';
 
-/**
- * Promise 测试
- * 
- * 
- */
+window.onload = function() {
+    let server = './index.php'
+    let send_param = ''
+    createXHR(server, send_param, callback)
 
-
-
-
-
-console.log('test');
-
-// let promise = new Promise(
-//     function func(resolve, reject) {
-//         console.log('第一件事');
-
-//         // if(success) {
-//         //     return resolve;
-//         // } else {
-//         //     return reject;
-//         // }
-//         // return resolve;
-//         resolve();
-//         reject();
-
-//         // return 3;
-//     }
-// );
-
-function getValue() {
-    let promise = new Promise(
-        function func(resolve, reject) {
-            console.log('第一件事');
-            let xhr;
-            if (window.XMLHttpRequest) {
-                xhr = new XMLHttpRequest();
-            } else if (window.ActiveXObject) {
-                xhr = new ActiveXObject("Microsoft.XMLHTTP");
-            }
-            xhr.open('POST', '/dev/_output_tags_array.php', true);
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    let data = JSON.parse(xhr.responseText);
-                    resolve(data);
-                    reject(data);
-                }
-            };
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            xhr.send();
-        }
-    );
-    return promise;
+    let submit = document.getElementById('submit')
+    if(submit) {
+        submit.addEventListener('click', function(){
+            let res =  checked()
+            console.log(res)
+        })
+    }
 }
 
-let promise = getValue();
+// 获取特定 select 选择器的值
+let selected = function(index) {
+    let selectObj = document.getElementById(`tags_${index}`)
+    let value = selectObj.options[selectObj.selectedIndex].value
+    return value
+}
 
-promise.then(
-    function func2(data) {
-        console.log('成功处理第一件事');
-        console.log('第二件事的参数为：');
-        console.log(data);
-    },
-    function func3(err) {
-        console.log('处理第一件事时发生错误');
-        console.log(err);
+// 获取所有选中的checkbox的值和索引
+let checked = function() {
+    let checkArr = {
+        'issues' : [],
+        'index' : [],
+        'tags' : []
     }
-);
+    let checks = document.getElementsByName('issues')
+    for (let index = 0; index < checks.length; index++) {
+        const element = checks[index];
+        if(element.checked) {
+            checkArr['issues'].push(element.value)
+            checkArr['index'].push(index)
+            checkArr['tags'].push(selected(index))
+        }
+    }
+    return checkArr
+}
 
-promise.then(
-    function(data){
-        console.log('正在处理第三件事');
-        console.log(data);
+let callback = function(data) {
+    let debug = document.getElementById('debug')
+
+    let select = ''
+    data['tags'].forEach(ele => {
+        select += `<option value='${ele['tid']}'>${ele['tag']}</option>`;
+    })
+
+    let content = ''
+    data['issues'].forEach((element, index) => {
+        content += `
+            <tr>
+                <td>${index}</td>
+                <td>${element.title}</td>
+                <td><select id='tags_${index}'>${select}</select></td>
+                <td><input type='checkbox' name='issues' value='${element.aid}'></td>
+            </tr>
+        `
+    })
+    debug.innerHTML = content
+}
+
+
+
+
+// 创建 XMLHttpRequest 对象：createXHR()
+function createXHR(server_url, send_param, callback) {
+    let xhr;
+    if (window.XMLHttpRequest) {
+        xhr = new XMLHttpRequest();
+    } else if (window.ActiveXObject) {
+        xhr = new ActiveXObject("Microsoft.XMLHTTP");
     }
-)
+    xhr.open('POST', server_url, true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            let data = JSON.parse(xhr.responseText);
+            // console.log(data);
+            callback(data);
+        }
+    };
+
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.send(send_param);
+}

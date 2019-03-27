@@ -2,17 +2,9 @@
 
 window.onload = function(){
   const sUploadImgHandle = '/app/instance/wangeditor-upload-img.php';
-  // const sUploadImgHandle = '/dev/_upload_image.php';
-  // const sSaveAricleDataHandle = '/app/instance/save-article-data-by-js.php';
   const sSaveAricleDataHandle = '/dev/_insert_article_data.php';
-  // const sDisplayFilesInDirHandle = '/app/instance/show-all-files-in-dir.php';
   const sDisplayFilesInDirHandle = '/dev/_output_specified_type_files.php';
-  // const sDeleteFileHandle = '';
-  // const sDisplayDepositListHandle = '/app/instance/show-deposit-list.php';
-  // const sDisplayDepositListHandle = '/dev/_output_all_no_issues.php';
   const sDisplayDepositListHandle = '/dev/_output_tags_and_no_issues.php';
-
-  const sDisplayTagsList = '/dev/_output_tags_array.php';
 
   const sEditorIdName = 'editor';
   const sSubmitArticleIdName = 'save_article';
@@ -65,12 +57,46 @@ window.onload = function(){
   // createXHR('/dev/_output_tags_array.php', '', showTagsList);
 
   // 提交存稿箱的更改
+  let release = document.getElementById('release')
+  if(release) {
+    release.addEventListener('click', function(){
+      let res = checked()
+
+      console.log(res)
+    })
+  }
 }
 
 
 // 7.保存选择结果并正式发布文章
 let saveSelected = function save_selected(cols, selected) {
 
+}
+
+
+// 获取特定 select 选择器的值
+let selected = function(index) {
+  let selectObj = document.getElementById(`tags_${index}`)
+  let value = selectObj.options[selectObj.selectedIndex].value
+  return value
+}
+// 获取所有选中的checkbox的值和索引
+let checked = function() {
+  let checkArr = {
+      'issues' : [],
+      'index' : [],
+      'tags' : []
+  }
+  let checks = document.getElementsByName('issues')
+  for (let index = 0; index < checks.length; index++) {
+      const element = checks[index];
+      if(element.checked) {
+          checkArr['issues'].push(element.value)
+          checkArr['index'].push(index)
+          checkArr['tags'].push(selected(index))
+      }
+  }
+  return checkArr
 }
 
 
@@ -95,11 +121,11 @@ let showDepositFiles = function show_deposit_list( data ) {
     <td>${element['title']}</td>
     <td>${element['time']}</td>
     <td>
-      <select class='article_column'>
+      <select id='tags_${index}' name='tags'>
         ${select}
       </select>
     </td>
-    <td><input type='checkbox' value='${element['aid']}'></td>
+    <td><input type='checkbox' name='issues' value='${element['aid']}'></td>
   </tr>`;
   });
   deposit_list.innerHTML = table;

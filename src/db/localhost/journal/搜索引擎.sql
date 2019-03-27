@@ -1,0 +1,1 @@
+SELECT `tid`, `tag` FROM `tags` WHERE instr(`tag`, '海') > 0 ORDER BY `tid`
