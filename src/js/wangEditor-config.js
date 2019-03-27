@@ -9,7 +9,8 @@ window.onload = function(){
   const sDisplayFilesInDirHandle = '/dev/_output_specified_type_files.php';
   // const sDeleteFileHandle = '';
   // const sDisplayDepositListHandle = '/app/instance/show-deposit-list.php';
-  const sDisplayDepositListHandle = '/dev/_output_all_no_issues.php';
+  // const sDisplayDepositListHandle = '/dev/_output_all_no_issues.php';
+  const sDisplayDepositListHandle = '/dev/_output_tags_and_no_issues.php';
 
   const sDisplayTagsList = '/dev/_output_tags_array.php';
 
@@ -61,40 +62,44 @@ window.onload = function(){
   createXHR(sDisplayDepositListHandle, '', showDepositFiles);
 
   // 显示栏目列表
-  createXHR('/dev/_output_tags_array.php', '', showTagsList);
+  // createXHR('/dev/_output_tags_array.php', '', showTagsList);
 
   // 提交存稿箱的更改
 }
 
 
+// 7.保存选择结果并正式发布文章
+let saveSelected = function save_selected(cols, selected) {
 
-// 7.显示所有的栏目
-let showTagsList = function show_tags_list( data ) {
-  // let article_column = document.getElementById('article_column');
-  let article_column = document.getElementsByClassName('article_column');
-  let str = '';
-  data.forEach((element, index) => {
-    str += `<option value='${element['tid']}'>${element['tag']}</option>`
-  });
-  article_column.innerHTML = str;
 }
 
+
 // 6.下载文件
-let downloadFile = function download_file($path) {
+let downloadFile = function download_file(path) {
   // 暂不使用
 }
 
-// 5.显示存稿箱中的文件列表
+// 5.显示存稿箱中的文件列表 和 栏目列表
 let showDepositFiles = function show_deposit_list( data ) {
   let deposit_list = document.getElementById('deposit-box-list');
   let table = '';
-  data.forEach((element, index) => {
+  let select = '';
+
+  data['tags'].forEach(ele => {
+    select += `<option value='${ele['tid']}'>${ele['tag']}</option>`;
+  })
+
+  data['issues'].forEach((element, index) => {
   table += `<tr>
     <td>${index + 1}</td>
     <td>${element['title']}</td>
     <td>${element['time']}</td>
-    <td><select class='article_column'></select></td>
-    <td><input type='checkbox'></td>
+    <td>
+      <select class='article_column'>
+        ${select}
+      </select>
+    </td>
+    <td><input type='checkbox' value='${element['aid']}'></td>
   </tr>`;
   });
   deposit_list.innerHTML = table;
