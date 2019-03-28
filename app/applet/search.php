@@ -24,7 +24,7 @@ ini_set('memory_limit', '1024M');
 Jieba::init();
 Finalseg::init();
 
-$conn = Connection::getInstance('../config/journalDB.php');
+$conn = Connection::getInstance('../../app/config/journalDB.php');
 
 $kw =  $_GET['kw'] ?? '';
 $uid = $_GET['uid'] ?? 0;
@@ -62,31 +62,55 @@ function search($kw)
 
     // 1.在 tags 表中查询
     $tags = array();
+    $tids = array();
     foreach ($part as $key => $value) {
-        $sql1 = "SELECT `tid`, `tag` FROM `tags` WHERE instr(`tag`, '$value') > 0 ORDER BY `tid`";
+        $sql1 = "SELECT `tid` FROM `tags` WHERE instr(`tag`, '$value') > 0 ORDER BY `tid`";
         $stmt = $conn->query($sql1)->fetchAll(PDO::FETCH_ASSOC);
         if($stmt) {
             foreach ($stmt as $key => $value) {
-                $tags[] = $value;
+                $tids[] = $value['tid'];
             }            
         }
     }
-    $res['column'] = $tags;
+    if(count($tids) > 0) {
+        $tids = array_unique($tids);
+
+        $sql = 'SELECT `tid`,`tag` FROM `tags` WHERE `tid` IN(' . implode(',', $tids) . ')';
+        $stmt = $conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+        if($stmt) {
+            foreach ($stmt as $key => $value) {
+                $tags[] = $value;
+            }
+        }
+        $res['column'] = $tags;
+    }
 
     // 2.在 article 表中查询
     $articles = array();
+    $aids =  array();
     foreach ($part as $key => $value) {
-        $sql2 = "SELECT `aid`,`title`,`abstract`,`first_img` FROM `article` WHERE instr(CONCAT(`title`,`abstract`), '$value') > 0 ORDER BY `view`";
+        $sql2 = "SELECT `aid` FROM `article` WHERE instr(CONCAT(`title`,`abstract`), '$value') > 0 ORDER BY `view`";
         $stmt = $conn->query($sql2)->fetchAll(PDO::FETCH_ASSOC);
         
+        if($stmt) {
+            foreach ($stmt as $key => $value) {
+                $aids[] = $value['aid'];
+            }
+        }
+    }
+    if(count($aids) > 0) {
+        $aids = array_unique($aids);
+
+        $sql = 'SELECT `aid`,`title`,`abstract`,`first_img` FROM `article` WHERE `aid` IN(' . implode(',', $aids) . ')';
+        $stmt = $conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
         if($stmt) {
             foreach ($stmt as $key => $value) {
                 $value['favorite'] = false;
                 $articles[] = $value;
             }
         }
+        $res['articles'] = $articles;
     }
-    $res['articles'] = $articles;
 
     return $res;
 }
