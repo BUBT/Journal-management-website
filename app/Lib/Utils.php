@@ -116,7 +116,7 @@ class Utils
     }
 
     /**
-     * Utils::save_rmeote_img()          保存远程图片至文件夹
+     * Utils::save_remote_img()          保存远程图片至文件夹
      *
      * @param string $url                远程图片地址
      * @param string $save_dir           保存文件夹目录，默认为 /src/upload/

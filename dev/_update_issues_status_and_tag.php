@@ -8,19 +8,25 @@ use app\data\Connection;
 
 $conn = Connection::getInstance('../app/config/journalDB.php');
 
-$dbname = 'journal';
-$tbname = 'article';
+$aids = $_POST['aids'] ?? '';
+$tids = $_POST['tids'] ?? '';
 
-$aid = 3;
+if($aids && $tids) {
+    $sql = 'UPDATE `article` SET `is_issue` = 1 WHERE `aid` IN(' . $aids . ')';
+    $conn->query($sql);
+    
+    $aids = explode(',', $aids);
+    $tids = explode(',', $tids);
+    
+    foreach ($aids as $key => $aid) {
+        
+        foreach ($tids as $key => $tid) {
+            $sql = 'INSERT INTO `column`(`tid`, `aid`) VALUES (' . $tid . ',' . $aid . ')';
+            $conn->query($sql);
+        }
+    }
 
-$cols = [
-    'is_issue'
-];
-$sql = 'UPDATE `journal`.`article` SET `is_issue` = 1 WHERE `aid` = ' . $aid;
-$conn->query($sql);
-
-
-$tbname = 'column';
-$tid = 1;
-$sql = 'INSERT INTO `journal`.`column`(`tid`, `aid`) VALUES (' . $tid . ',' . $aid . ')';
-$conn->query($sql);
+    echo json_encode(true, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+} else {
+    echo json_encode('接收数据失败！', JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+}

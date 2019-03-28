@@ -41,6 +41,8 @@ function delFavorite($uid = 1, $aid = 1)
     global $conn;
     $sql = 'DELETE FROM `journal`.`favorite` WHERE `uid` = ' . $uid . ' AND `aid` = ' . $aid;
     $conn->query($sql);
+    $sql = 'UPDATE `article` SET `star` = `star` - 1 WHERE `aid` = ' . $aid;
+    $conn->query($sql);
     // return true;
 }
 
@@ -48,6 +50,8 @@ function addFavorite($uid = 1, $aid = 1)
 {
     global $conn;
     $sql = 'INSERT INTO `journal`.`favorite`(`uid`, `aid`) VALUES(' . $uid . ', ' . $aid . ')';
+    $conn->query($sql);
+    $sql = 'UPDATE `article` SET `star` = `star` + 1 WHERE `aid` = ' . $aid;
     $conn->query($sql);
     // return true;
     // return $sql;

@@ -18,7 +18,7 @@ $html = $_POST['html'] ?? 'HTML字符串';
 $url = Remote::upload_text($html, 'html', $title . '_' . $author . '.html', 'http://localhost:8081/dev/_upload_text.php');
 $imgsArr = Utils::get_img_url_in_string($html);
 if($imgsArr) {
-    $imgPath = Utils::get_thumbnail_img($imgsArr[0], '/src/thumbs/thumb_' . time() . Utils::get_file_mime($imgsArr[0]));
+    $imgPath = Utils::get_thumbnail_img($imgsArr[0], $_SERVER['DOCUMENT_ROOT'] . '/src/thumbs/thumb_' . time() . Utils::get_file_mime($imgsArr[0]));
     $img = Utils::path_to_url($imgPath, 'http://localhost:8081/src/thumbs/');
 } else {
     $img = NULL;
