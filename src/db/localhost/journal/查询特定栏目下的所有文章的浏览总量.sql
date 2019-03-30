@@ -1,0 +1,1 @@
+SELECT `view` FROM `article` WHERE `aid` IN( SELECT `aid` FROM `column` WHERE `tid` = 1)

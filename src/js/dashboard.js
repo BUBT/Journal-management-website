@@ -163,25 +163,25 @@ function getUnprocessedManuscript( data ) {
 }
 
 // 2.创建 XMLHttpRequest 对象：createXHR()
-function createXHR( server_url, send_param, callback ) {
-  let xhr;
-  if(window.XMLHttpRequest){
-    xhr = new XMLHttpRequest();
-  }else if(window.ActiveXObject){
-    xhr = new ActiveXObject("Microsoft.XMLHTTP");
-  }
-  xhr.open('POST', server_url, true);
-  xhr.onreadystatechange = function(){
-    if(xhr.readyState === 4 && xhr.status === 200){
-      let data = JSON.parse(xhr.responseText);
-      // console.log(data);
-      callback( data );
-    }
-  };
+// function createXHR( server_url, send_param, callback ) {
+//   let xhr;
+//   if(window.XMLHttpRequest){
+//     xhr = new XMLHttpRequest();
+//   }else if(window.ActiveXObject){
+//     xhr = new ActiveXObject("Microsoft.XMLHTTP");
+//   }
+//   xhr.open('POST', server_url, true);
+//   xhr.onreadystatechange = function(){
+//     if(xhr.readyState === 4 && xhr.status === 200){
+//       let data = JSON.parse(xhr.responseText);
+//       // console.log(data);
+//       callback( data );
+//     }
+//   };
 
-  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-  xhr.send(send_param);
-}
+//   xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+//   xhr.send(send_param);
+// }
 
 // 1.创建编辑器对象：createEditorObject()
 function createEditorObject( editor_id, upload_img_server_url ) {

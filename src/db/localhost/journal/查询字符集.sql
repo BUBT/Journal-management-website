@@ -1,3 +1,4 @@
-show variables like 'char%';
+use mysql;
+SHOW variables LIKE 'char%';
 
-set character_set_client=utf8;
+SET character_set_server = utf8;
