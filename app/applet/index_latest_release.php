@@ -17,7 +17,7 @@ use app\data\Connection;
 
 $uid = $_GET['uid'] ?? '';
 
-$conn = Connection::getInstance('../config/journalDB.php');
+$conn = Connection::getInstance('./../config/journalDB.php');
 $sql = 'SELECT `aid`, `title`, `abstract`, `author`, `first_img`, `view`, `star`, `recevied_date` AS `time` FROM `article` WHERE `is_issue` = 1 ORDER BY `recevied_date` DESC';
 $stmt = $conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 if($stmt) {

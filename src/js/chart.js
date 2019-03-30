@@ -56,7 +56,7 @@ let pieChartOption = function(dataset) {
     let option = {
         title: {
             text: '各栏目文章数目占比',
-            x: 'left'
+            x: 'center'
         },
         tooltip: {
             trigger: 'item',
@@ -79,7 +79,7 @@ let pieChartOption = function(dataset) {
                 type: 'pie', 
                 name: '文章占比', 
                 radius: '50%', 
-                center: ['40%', '40%'], 
+                center: ['50%', '50%'], 
             },
         ]
     };
