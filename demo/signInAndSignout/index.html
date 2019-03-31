@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./index.js"></script>
+    <title>用户中心</title>
+</head>
+<body>
+    <div id="check-user">
+
+        <!-- 1.用户未登录：显示登录按钮 -->
+        <!-- <div id="btn-signin">未登录</div> -->
+        <!-- <div id="btn-signin" onclick="signin">未登录</div> -->
+
+        <div id="no-user">
+            <button id="btn-signin">未登录</button>
+        </div>
+
+        <!-- 2.用户已登录：显示用户基本信息和退出登录按钮 -->
+        <div id="yes-user">
+            <h6 id="user-name"></h6>
+            <!-- <p id="user-number">133-3232-4343</p> -->
+            <!-- <div id="btn-signout">退出登录</div> -->
+            <button id="btn-signout">退出登录</button>
+        </div>
+        
+        <button onclick="alert(2)">anniu</button>
+    </div>
+</body>
+</html>

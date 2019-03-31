@@ -16,7 +16,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
 use app\data\Connection;
 use app\lib\Utils;
 
-$uid = $_GET['uid'] ?? 1;
+$uid = $_GET['uid'] ?? 0;
 
 $conn = Connection::getInstance('../config/journalDB.php');
 
