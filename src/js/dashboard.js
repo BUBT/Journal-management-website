@@ -53,7 +53,8 @@ window.onload = function(){
     release.addEventListener('click', function(){
       let res = checked()
       // let arr = res['tags'].map(Object.values)
-      let params = `aids=${res['issues'].map(Object.values)}&tids=${res['tags'].map(Object.values)}`
+      console.log(res);
+      let params = `aids=${res['issues'].join(',')}&tids=${res['tags'].join(',')}`
       createXHR('/dev/_update_issues_status_and_tag.php', params, function(data) {
         console.log(data)
         if(data == true) {

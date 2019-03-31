@@ -19,13 +19,16 @@ if($aids && $tids) {
     $tids = explode(',', $tids);
     
     foreach ($aids as $key => $aid) {
-        
-        foreach ($tids as $key => $tid) {
-            $sql = 'INSERT INTO `column`(`tid`, `aid`) VALUES (' . $tid . ',' . $aid . ')';
-            $conn->query($sql);
-        }
+        $sql = 'INSERT INTO `column`(`tid`, `aid`) VALUES (' . $tids[$key] . ',' . $aid . ')';
+        $conn->query($sql);
+
+        // foreach ($tids as $key => $tid) {
+        //     $sql = 'INSERT INTO `column`(`tid`, `aid`) VALUES (' . $tids[$key] . ',' . $aid . ')';
+        //     $conn->query($sql);
+        // }
     }
 
+    // echo json_encode($aids, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     echo json_encode(true, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 } else {
     echo json_encode('接收数据失败！', JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
