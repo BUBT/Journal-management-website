@@ -26,6 +26,7 @@ if($aid) {
     if($stmt) {
         $path = $_SERVER['DOCUMENT_ROOT'] . '/src/issues/' . basename($stmt['url']);
         $stmt['html'] = file_get_contents($path);
+
         echo json_encode($stmt, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     } else {
         $tips = '查询出错！';
@@ -35,4 +36,28 @@ if($aid) {
 } else {
     $tips = '未接收到数据！';
     echo json_encode($tips, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+}
+
+
+/**
+ * 获取文章下的评论列表
+ *
+ * @param int $aid      文章ID
+ * @return void         返回评论列表
+ */
+function get_comments_of_article($aid = 0)
+{
+    global $conn;
+    $sql = 'SELECT `aid`, `uid`, `comment` FROM `comment` WHERE `aid` = ' . $aid;
+    $stmt = $conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+    if($stmt) {
+        foreach ($stmt as $key => $value) {
+            // $uids[] = $value['uid'];
+            $sql2 = 'SELECT `name` FROM `user` WHERE `uid` = ' . $value['uid'];
+            $stmt2 = $conn->query($sql2)->fetch(PDO::FETCH_ASSOC);
+            $stmt[$key]['uname'] = $stmt2['name'];
+        }
+        return $stmt;
+    }
+    return null;
 }
