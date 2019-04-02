@@ -27,6 +27,8 @@ if($aid) {
         $path = $_SERVER['DOCUMENT_ROOT'] . '/src/issues/' . basename($stmt['url']);
         $stmt['html'] = file_get_contents($path);
 
+        $stmt['comment'] = get_comments_of_article($aid);
+
         echo json_encode($stmt, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     } else {
         $tips = '查询出错！';
@@ -53,9 +55,10 @@ function get_comments_of_article($aid = 0)
     if($stmt) {
         foreach ($stmt as $key => $value) {
             // $uids[] = $value['uid'];
-            $sql2 = 'SELECT `name` FROM `user` WHERE `uid` = ' . $value['uid'];
+            $sql2 = 'SELECT `name`,`avatar` FROM `user` WHERE `uid` = ' . $value['uid'];
             $stmt2 = $conn->query($sql2)->fetch(PDO::FETCH_ASSOC);
             $stmt[$key]['uname'] = $stmt2['name'];
+            $stmt[$key]['uavatar'] = $stmt2['avatar'];
         }
         return $stmt;
     }

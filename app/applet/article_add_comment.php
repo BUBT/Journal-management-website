@@ -24,7 +24,7 @@ $comment = $_GET['comment'] ?? '';
 if($aid != 0 && $uid != 0 && $comment != '') {
     // 向评论表中添加记录
     $sql = 'INSERT INTO `comment`(`aid`, `uid`, `comment`) VALUES(' . $aid . ',' . $uid . ',' . "'" . $comment . "')";
-    $stmt = $conn->query($sql)->fetch();
+    $stmt = $conn->query($sql);
     if($stmt) {
         echo json_encode(true);
     } else {
