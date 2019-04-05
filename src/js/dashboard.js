@@ -1,10 +1,10 @@
 // 后台界面管理
 
 window.onload = function(){
-  const sUploadImgHandle = '/app/instance/wangeditor-upload-img.php';
-  const sSaveAricleDataHandle = '/dev/_insert_article_data.php';
-  const sDisplayFilesInDirHandle = '/dev/_output_specified_type_files.php';
-  const sDisplayDepositListHandle = '/dev/_output_tags_and_no_issues.php';
+  const sUploadImgHandle = '/Journal-management-website/app/instance/wangeditor-upload-img.php';
+  const sSaveAricleDataHandle = '/Journal-management-website/dev/_insert_article_data.php';
+  const sDisplayFilesInDirHandle = '/Journal-management-website/dev/_output_specified_type_files.php';
+  const sDisplayDepositListHandle = '/Journal-management-website/dev/_output_tags_and_no_issues.php';
 
   const sEditorIdName = 'editor';
   const sSubmitArticleIdName = 'save_article';
@@ -55,7 +55,7 @@ window.onload = function(){
       // let arr = res['tags'].map(Object.values)
       console.log(res);
       let params = `aids=${res['issues'].join(',')}&tids=${res['tags'].join(',')}`
-      createXHR('/dev/_update_issues_status_and_tag.php', params, function(data) {
+      createXHR('/Journal-management-website/dev/_update_issues_status_and_tag.php', params, function(data) {
         console.log(data)
         if(data == true) {
           alert('正式发布成功~')
@@ -140,7 +140,7 @@ let showDepositFiles = function show_deposit_list( data ) {
 let deleteLine = function remove_a_line_data_by_click_button(sIdName, url) {
   const row = document.getElementById(`lines_${sIdName}`);
   row.remove();
-  createXHR('/dev/_delete_file_by_path.php', 'delete=' + url, function(){});
+  createXHR('/Journal-management-website/dev/_delete_file_by_path.php', 'delete=' + url, function(){});
 }
 
 // TODO:4.根据文件地址，删除该文件

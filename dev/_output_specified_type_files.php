@@ -2,12 +2,12 @@
 
 // 显示某个目录下的所有特定类型文件，并输出其地址
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
+require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 use app\lib\Files;
 
-$path = $_SERVER['DOCUMENT_ROOT'] . '/src/upload/';
-$url = 'http://localhost:8081/src/upload/';
+$path = dirname(__DIR__) . '/src/upload/';
+$url = 'http://localhost:8081/Journal-management-website/src/upload/';
 
 $patten = '*.jpg|png';
 // $patten = '*.doc|docx|md';

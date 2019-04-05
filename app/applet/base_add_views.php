@@ -11,14 +11,15 @@
  */
 
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
+require_once dirname(dirname(__DIR__)) . '/vendor/autoload.php';
 
 use app\data\Connection;
 
 $aid = $_GET['aid'] ?? '';
 
 if($aid) {
-    $conn = Connection::getInstance('../config/journalDB.php');
+    $conn = Connection::getInstance(dirname(__DIR__) . '/config/journalDB.php');
+
     $sql = 'UPDATE `article` SET `view` = `view` + 1 WHERE `aid` = ' . $aid;
     $stmt = $conn->query($sql);
     echo json_encode(true, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);

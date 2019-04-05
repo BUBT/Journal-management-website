@@ -11,11 +11,11 @@
  */
 
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
+require_once dirname(dirname(__DIR__)) . '/vendor/autoload.php';
 
 use app\data\Connection;
 
-$conn = Connection::getInstance('../config/journalDB.php');
+$conn = Connection::getInstance(dirname(__DIR__) . '/config/journalDB.php');
 
 $uid = $_GET['uid'] ?? 0;
 

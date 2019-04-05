@@ -1,6 +1,6 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
+require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 // 保存文章存稿信息至数据库
 
@@ -15,11 +15,11 @@ $kw = $_POST['kw'] ?? '关键字';
 $content = $_POST['content'] ?? '纯文本内容';
 $html = $_POST['html'] ?? 'HTML字符串';
 
-$url = Remote::upload_text($html, 'html', $title . '_' . $author . '.html', 'http://localhost:8081/dev/_upload_text.php');
+$url = Remote::upload_text($html, 'html', $title . '_' . $author . '.html', 'http://localhost:8081/Journal-management-website/dev/_upload_text.php');
 $imgsArr = Utils::get_img_url_in_string($html);
 if($imgsArr) {
-    $imgPath = Utils::get_thumbnail_img($imgsArr[0], $_SERVER['DOCUMENT_ROOT'] . '/src/thumbs/thumb_' . time() . Utils::get_file_mime($imgsArr[0]));
-    $img = Utils::path_to_url($imgPath, 'http://localhost:8081/src/thumbs/');
+    $imgPath = Utils::get_thumbnail_img($imgsArr[0], dirname(__DIR__) . '/src/thumbs/thumb_' . time() . Utils::get_file_mime($imgsArr[0]));
+    $img = Utils::path_to_url($imgPath, 'http://localhost:8081/Journal-management-website/src/thumbs/');
 } else {
     $img = NULL;
 }
@@ -33,7 +33,7 @@ if($imgsArr) {
 // $url = 'http://localhost:8081/src/issues/标题_作者_testd8923232.html';
 
 
-$config = $_SERVER['DOCUMENT_ROOT'] . '/app/config/journalDB.php';
+$config = dirname(__DIR__) . '/app/config/journalDB.php';
 $conn = Connection::getInstance($config);
 
 $dbname = 'journal';

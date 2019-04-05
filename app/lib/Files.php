@@ -15,8 +15,8 @@ class Files
     ];
 
     const PATH = [
-        'upload' => "/src/upload/",
-        'issues' => "/src/issues/"
+        'upload' => "/Journal-management-website/src/upload/",
+        'issues' => "/Journal-management-website/src/issues/"
     ];
 
     public function __construct()

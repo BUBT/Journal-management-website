@@ -11,7 +11,7 @@
  */
 
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
+require_once dirname(dirname(__DIR__)) . '/vendor/autoload.php';
 
 use app\data\Connection;
 use app\data\Applet;
@@ -28,7 +28,8 @@ if( !empty($code) && !empty($name) && !empty($avatar) ) {
     $openID = Applet::code2openid( $code );
     // 2.利用唯一性标识 openID 查询用户是否存在
     $sql_query_is_exist_by_openid = "SELECT `uid` FROM `user` WHERE `openid` = '" . $openID . "'";
-    $conn = Connection::getInstance('../config/journalDB.php');
+    $conn = Connection::getInstance(dirname(__DIR__) . '/config/journalDB.php');
+
     $stmt = $conn->query( $sql_query_is_exist_by_openid );
     $arr = $stmt->fetch(PDO::FETCH_ASSOC);
     if( $arr ) {

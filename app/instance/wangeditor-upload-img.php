@@ -2,13 +2,13 @@
 
 // // 富文本编辑器 wangEditor 图片上传服务器处理
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
+require_once dirname(dirname(__DIR__)) . '/vendor/autoload.php';
 
 use app\lib\Remote;
 
 $remote = Remote::upload_image(
     // 'http://localhost/app/instance/upload.php',
-    'http://localhost:8081/dev/_upload_image.php',
+    'http://localhost:8081/Journal-management-website/dev/_upload_image.php',
     'upload'
 );
 

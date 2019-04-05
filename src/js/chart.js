@@ -123,7 +123,7 @@ let createXHR = function(server_url = '', send_param = '', callback) {
 }
 
 
-const columnComparisionInfo = '/dev/_column_conparison_data.php';
+const columnComparisionInfo = '/Journal-management-website/dev/_column_conparison_data.php';
 // 1.各栏目的总点击、收藏量
 const columnComparisionArea = document.getElementById('echarts_1');
 // 2.各栏目的文章数目

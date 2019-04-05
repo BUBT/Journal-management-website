@@ -1,10 +1,10 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
+require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 use app\data\Connection;
 
-$conn = Connection::getInstance('../app/config/journalDB.php');
+$conn = Connection::getInstance(dirname(__DIR__) . '/app/config/journalDB.php');
 
 $dbname = 'journal';
 $tbname = 'article';

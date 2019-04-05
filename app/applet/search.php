@@ -14,7 +14,7 @@
  */
 
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
+require_once dirname(dirname(__DIR__)) . '/vendor/autoload.php';
 
 use app\data\Connection;
 use Fukuball\Jieba\Jieba;
@@ -24,7 +24,7 @@ ini_set('memory_limit', '1024M');
 Jieba::init();
 Finalseg::init();
 
-$conn = Connection::getInstance('../../app/config/journalDB.php');
+$conn = Connection::getInstance(dirname(__DIR__) . '/config/journalDB.php');
 
 $kw =  $_GET['kw'] ?? '';
 $uid = $_GET['uid'] ?? 0;

@@ -11,7 +11,7 @@
  */
 
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
+require_once dirname(dirname(__DIR__)) . '/vendor/autoload.php';
 
 use app\data\Connection;
 use app\lib\Utils;
@@ -19,7 +19,7 @@ use app\lib\Utils;
 $tid = $_GET['tid'] ?? 0;
 $uid = $_GET['uid'] ?? 0;
 
-$conn = Connection::getInstance('../config/journalDB.php');
+$conn = Connection::getInstance(dirname(__DIR__) . '/config/journalDB.php');
 
 if($tid != 0) {
     $sql = 'SELECT `tag` FROM `tags` WHERE `tid` = ' . $tid;

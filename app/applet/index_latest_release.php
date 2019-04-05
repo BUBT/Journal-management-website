@@ -10,14 +10,14 @@
  * 返回：最新发布文章列表(aid title abstract first_img author recevied_date favorite tag )
  */
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
+require_once dirname(dirname(__DIR__)) . '/vendor/autoload.php';
 
 use app\data\Connection;
 
 
 $uid = $_GET['uid'] ?? '';
 
-$conn = Connection::getInstance('./../config/journalDB.php');
+$conn = Connection::getInstance(dirname(__DIR__) . '/config/journalDB.php');
 $sql = 'SELECT `aid`, `title`, `abstract`, `author`, `first_img`, `view`, `star`, `recevied_date` AS `time` FROM `article` WHERE `is_issue` = 1 ORDER BY `recevied_date` DESC';
 $stmt = $conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 if($stmt) {

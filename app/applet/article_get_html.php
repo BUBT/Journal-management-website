@@ -11,20 +11,20 @@
  */
 
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
+require_once dirname(dirname(__DIR__)) . '/vendor/autoload.php';
 
 use app\data\Connection;
 // use app\lib\Utils;
 
 $aid = $_GET['aid'] ?? 0;
-$conn = Connection::getInstance('../config/journalDB.php');
+$conn = Connection::getInstance(dirname(__DIR__) . '/config/journalDB.php');
 
 if($aid) {
 
     $sql = 'SELECT `title`, `recevied_date` AS `time`, `file_url` AS `url` FROM `article` WHERE `aid` = ' . $aid;
     $stmt = $conn->query($sql)->fetch(PDO::FETCH_ASSOC);
     if($stmt) {
-        $path = $_SERVER['DOCUMENT_ROOT'] . '/src/issues/' . basename($stmt['url']);
+        $path = dirname(dirname(__DIR__)) . '/src/issues/' . basename($stmt['url']);
         $stmt['html'] = file_get_contents($path);
 
         $stmt['comment'] = get_comments_of_article($aid);
